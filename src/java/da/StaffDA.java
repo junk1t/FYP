@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package da;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,6 +18,7 @@ import java.io.Serializable;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -28,11 +28,41 @@ import javax.faces.context.FacesContext;
  *
  * @author Alex
  */
+
 @ManagedBean(name = "StaffDA")
 @SessionScoped
 public class StaffDA implements Serializable {
+    public List<Staff> getSelectedRecords(String staffID) throws SQLException {
 
-    private Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+        Connection connect = null;
+        List<Staff> output = new ArrayList<Staff>();
+
+        try {
+            connect = DBConnection.getConnection();
+            PreparedStatement pstmt = connect.prepareStatement("SELECT s.staffID,s.staffName,sd.startwork,sd.endwork,s.remark "
+                    + "FROM staff s, staffdetails sd WHERE s.staffID=? AND s.staffID = sd.staffID");
+            pstmt.setString(1, staffID);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Staff s = new Staff();
+                s.setStaffID(rs.getString(1));
+                s.setStaffName(rs.getString(2));
+                s.setStartWork(rs.getString(3));
+                s.setEndWork(rs.getString(4));
+                s.setRemark(rs.getString(5));
+
+                output.add(s);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        DBConnection.close(connect);
+        return output;
+
+    }
+
 
     public ArrayList<Class> getClassList(String staffID) throws SQLException {
         ArrayList<Class> classList = new ArrayList();
@@ -83,6 +113,8 @@ public class StaffDA implements Serializable {
 //       this.endWork = null;
 //   }
 
+    
+
     public void insertStaff() throws SQLException {
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
@@ -121,28 +153,27 @@ public class StaffDA implements Serializable {
                 staffID = "S1001";
             }
             try {
-              
+
                 PreparedStatement pstmt = connect.prepareStatement("INSERT INTO STAFF VALUES(?,?,?)");
 
                 pstmt.setString(1, staffID);
                 pstmt.setString(2, staffName);
                 pstmt.setString(3, remark);
                 pstmt.executeUpdate();
-                 this.success = true;
-                    this.message = false;
+                this.success = true;
+                this.message = false;
                 try {
-                    
+
                     PreparedStatement pstmts = connect.prepareStatement("INSERT INTO STAFFDETAILS VALUES(?,?,?)");
                     pstmts.setString(1, staffID);
                     pstmts.setString(2, startWork);
                     pstmts.setString(3, endWork);
 
-                   
                     pstmts.executeUpdate();
 
                     this.success = true;
                     this.message = false;
-                    
+
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -169,7 +200,7 @@ public class StaffDA implements Serializable {
             Connection connection = obj_DB_connection.connection();
             PreparedStatement ps = connection.prepareStatement("delete from STAFF where STAFFID = ?");
             PreparedStatement pss = connection.prepareStatement("delete from STAFFDETAILS where STAFFID = ?");
-            
+
             ps.setString(1, Sstaff);
             pss.setString(1, Sstaff);
             System.out.println(ps);
@@ -182,8 +213,10 @@ public class StaffDA implements Serializable {
     }
 
     public String editStaff() {
+        Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        
         String staffID = params.get("action");
         try {
             DB_connection obj_DB_connection = new DB_connection();

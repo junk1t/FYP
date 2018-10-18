@@ -59,7 +59,7 @@
 
                 <h:commandButton action="newGroup" value="+New Group" styleClass="btn"/>
                 <h:commandButton action="selectGroup" value="Edit Group" styleClass="btn"/>
-                <h:commandButton action="step4Staff" value="Next" styleClass="btn"/><br/>
+                <h:commandButton action="step4Staff" value="Next" styleClass="btn"/><br/><br/>
 
                 <h3>Available Tutorial Group</h3>
                 <h:dataTable value = "#{viewAll.allTutorialGroup}" var = "g"
@@ -69,9 +69,7 @@
                              class="table table-bordered table-striped">
                     <h:column> 	
                         <f:facet name="header">Selection</f:facet>
-                        <h:selectManyCheckbox>
-                            <f:selectItem itemValue="" itemLabel="" />
-                        </h:selectManyCheckbox>
+                        <h:selectBooleanCheckbox onclick="#{selection.addToList(c.courseID)}"/>
                     </h:column>
                     <h:column> 
                         <f:facet name="header">Group ID</f:facet>

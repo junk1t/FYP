@@ -5,7 +5,6 @@
  */
 package da;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,6 +15,7 @@ import domain.Class;
 import domain.Venue;
 import java.io.Serializable;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -27,8 +27,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "venueDA")
 @SessionScoped
-public class VenueDA implements Serializable{
- private Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+public class VenueDA implements Serializable {
 
     public ArrayList<Class> getClassList(String venueID) throws SQLException {
         ArrayList<Class> classList = new ArrayList();
@@ -54,7 +53,7 @@ public class VenueDA implements Serializable{
         return classList;
     }
 
- //Get the alert message
+    //Get the alert message
     boolean success, message;
 
     public boolean isSuccess() {
@@ -81,8 +80,37 @@ public class VenueDA implements Serializable{
 //        this.remark = null;
 //    }
 
+    public List<Venue> getSelectedRecords(String venueID) throws SQLException {
+        Connection connect = null;
+        List<Venue> output = new ArrayList<Venue>();
+
+        try {
+            connect = DBConnection.getConnection();
+            PreparedStatement pstmt = connect.prepareStatement("SELECT * FROM venue WHERE venueID=? ");
+            pstmt.setString(1, venueID);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Venue v = new Venue();
+                v.setVenueID(rs.getString(1));
+                v.setBlock(rs.getString(2));
+                v.setVenueType(rs.getString(3));
+                v.setCapacity(rs.getInt(4));
+                v.setRemark(rs.getString(5));
+
+                output.add(v);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        DBConnection.close(connect);
+        return output;
+
+    }
+
     public void insertVenue() throws SQLException {
-  FacesContext fc = FacesContext.getCurrentInstance();
+        FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         String venueID = params.get("venueID");
         String block = params.get("block");
@@ -112,7 +140,7 @@ public class VenueDA implements Serializable{
             pstmt.executeUpdate();
             this.success = true;
             this.message = false;
-   
+
         } catch (SQLException ex) {
             this.message = true;
             this.success = false;
@@ -120,9 +148,9 @@ public class VenueDA implements Serializable{
         }
 
     }
- 
 
     public String editVenue() {
+        Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         String TvenueID = params.get("action");
@@ -130,7 +158,7 @@ public class VenueDA implements Serializable{
             DB_connection obj_DB_connection = new DB_connection();
             Connection connection = obj_DB_connection.connection();
             Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("select * from Venue where VenueID = '" + TvenueID+ "'");
+            ResultSet rs = st.executeQuery("select * from Venue where VenueID = '" + TvenueID + "'");
             Venue obj_Venue = new Venue();
             rs.next();
             obj_Venue.setVenueID(rs.getString("venueID"));
@@ -139,7 +167,7 @@ public class VenueDA implements Serializable{
             obj_Venue.setCapacity(rs.getInt("capacity"));
             obj_Venue.setRemark(rs.getString("remark"));
             sessionMap.put("editVenue", obj_Venue);
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -147,7 +175,7 @@ public class VenueDA implements Serializable{
     }
 
     public String updateVenue() {
-        
+
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         String venueID = params.get("venueID");
@@ -155,7 +183,7 @@ public class VenueDA implements Serializable{
         String venueType = params.get("venueType");
         String capacity = params.get("capacity");
         String remark = params.get("remark");
-        
+
         try {
             DB_connection obj_DB_connection = new DB_connection();
             Connection connection = obj_DB_connection.connection();
@@ -170,26 +198,25 @@ public class VenueDA implements Serializable{
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
         return "/EditInfo.xhtml?faces-redirect=true";
     }
-    public String deleteVenue(){
-      FacesContext fc = FacesContext.getCurrentInstance();
-      Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-      String TVenueID= params.get("action");
-      try {
-         DB_connection obj_DB_connection=new DB_connection();
-         Connection connection=obj_DB_connection.connection();
-       PreparedStatement ps=connection.prepareStatement("delete from VENUE where VenueID = ?");
-         ps.setString(1, TVenueID);
-         System.out.println(ps);
-         ps.executeUpdate();
+
+    public String deleteVenue() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        String TVenueID = params.get("action");
+        try {
+            DB_connection obj_DB_connection = new DB_connection();
+            Connection connection = obj_DB_connection.connection();
+            PreparedStatement ps = connection.prepareStatement("delete from VENUE where VenueID = ?");
+            ps.setString(1, TVenueID);
+            System.out.println(ps);
+            ps.executeUpdate();
         } catch (Exception e) {
-         System.out.println(e);
+            System.out.println(e);
         }
-       return "/EditInfo.xhtml?faces-redirect=true";   
-}
+        return "/EditInfo.xhtml?faces-redirect=true";
+    }
 
-
-   
 }
