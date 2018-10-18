@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <style>
+      
+        .order-table{   
+            border-collapse:collapse;
+            overflow-y: auto;
+        }
+
+        .order-table-header{
+            text-align:center;
+            background:none repeat scroll 0 0 #E5E5E5;
+            border-bottom:1px solid #BBBBBB;
+            padding:16px;
+        }
+
+        .order-table-odd-row{
+            text-align:center;
+            background:none repeat scroll 0 0 #FFFFFFF;
+            border-top:1px solid #BBBBBB;
+            max-height: 200px;
+
+        }
+        .order-table-even-row{
+            text-align:center;
+            background:none repeat scroll 0 0 #F9F9F9;
+            border-top:1px solid #BBBBBB;
+
+        }
+        body{
+            background-color: #a6dff4;
+        }
+        form{
+            background-color: white;
+            height: 500px;
+        }
+        .btn{
+            transition-duration: 0.4s;
+            padding: 10px 24px;
+            border-radius: 12px;
+        }
+        .btn .btn:hover{
+            background-color:  #4CAF50;
+            color: white;
+        }
+       
+    </style>
+    <h:head>
+        <title>Step 3:Groups</title>
+    </h:head>
+    <h:body>
+        <div align="center" class="btn">
+            <h1>Step 3: Tutorial Group</h1>
+            <h:form>
+
+                <h:commandButton action="newGroup" value="+New Group" styleClass="btn"/>
+                <h:commandButton action="selectGroup" value="Edit Group" styleClass="btn"/>
+                <h:commandButton action="step4Staff" value="Next" styleClass="btn"/><br/>
+
+                <h3>Available Tutorial Group</h3>
+                <h:dataTable value = "#{viewAll.allTutorialGroup}" var = "g"
+                             styleClass="order-table"
+                             headerClass="order-table-header"
+                             rowClasses="order-table-odd-row,order-table-even-row"
+                             class="table table-bordered table-striped">
+                    <h:column> 	
+                        <f:facet name="header">Selection</f:facet>
+                        <h:selectManyCheckbox>
+                            <f:selectItem itemValue="" itemLabel="" />
+                        </h:selectManyCheckbox>
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">Group ID</f:facet>
+                            #{g.groupID}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Year of Study</f:facet>
+                            #{g.studyYear}
+                    </h:column>
+                    <h:column> 	
+                        <f:facet name="header">Group Number</f:facet>
+                            #{g.groupNumber}
+                    </h:column>
+                    <h:column> 	
+                        <f:facet name="header">Size</f:facet>
+                            #{g.size}
+                    </h:column>
+                    <h:column> 	
+                        <f:facet name="header">Programme ID</f:facet>
+                            #{g.programmeID}
+                    </h:column>
+                    <h:column> 	
+                        <f:facet name="header">Cohort ID</f:facet>
+                            #{g.cohortID}
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

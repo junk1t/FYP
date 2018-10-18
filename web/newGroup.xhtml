@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <style>
+            .btn{
+                transition-duration: 0.4s;
+                padding: 10px 24px;
+                border-radius: 12px;
+            }
+            .btn .btn:hover{
+                background-color:  #4CAF50;
+                color: white;
+            }
+            body{
+                background-color: #a6dff4;
+            }
+            form{
+                background-color: white;
+                height: 500px;
+            }
+        </style>
+        <title>New Group</title>
+    </h:head>
+    <h:body>
+        <h:outputScript rendered="#{TutorialGroupDA.success}">
+            alert("Successfully!!!");
+        </h:outputScript>
+        <h:outputScript rendered="#{TutorialGroupDA.message}">
+            alert("Failed! Please try again.");
+        </h:outputScript>
+        <div align="center">
+            <h1>Add new group</h1>
+            <h:form>
+                <table>
+                    <br/>
+                    <tr>
+                        <td>Group ID:</td>
+                        <td><h:outputText value="#{TutorialGroupDA.maxID}" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td>Year of Study:</td>
+                        <td><h:inputText value="#{tutorialGroup.studyYear}" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td>Group Number:</td>
+                        <td> <h:inputText value="#{tutorialGroup.groupNumber}" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td>Size:</td>
+                        <td><h:inputText value="#{tutorialGroup.size}" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td>Programme ID</td>
+                        <td><h:selectOneMenu value="#{tutorialGroup.programmeID}">
+                                <f:selectItems value="#{viewAll.getAllProgrammeID()}" var="p"
+                                               itemLabel="#{p.programmeID}" itemValue="#{p.programmeID}" />
+                            </h:selectOneMenu></td>
+                    </tr>
+                    <tr>
+                        <td>Cohort ID</td>
+                        <td><h:selectOneMenu value="#{tutorialGroup.cohortID}">
+                                <f:selectItems value="#{viewAll.getAllCohortID()}" var="c"
+                                               itemLabel="#{c.cohortID}" itemValue="#{c.cohortID}" />
+                            </h:selectOneMenu></td>
+                    </tr>
+
+
+                </table>
+                <br/>
+                <h:commandButton action="#{TutorialGroupDA.insertTutorialGroup()}" value="Submit">
+                    <f:param name="studyYear" value="#{tutorialGroup.studyYear}" />
+                    <f:param name="groupNumber" value="#{tutorialGroup.groupNumber}" />
+                    <f:param name="size" value="#{tutorialGroup.size}" />
+                    <f:param name="programmeID" value="#{tutorialGroup.programmeID}" />
+                    <f:param name="cohortID" value="#{tutorialGroup.cohortID}" />
+                </h:commandButton>
+
+                <h:commandButton action="step3Groups" value="Done"/>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

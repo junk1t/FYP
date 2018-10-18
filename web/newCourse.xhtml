@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+          <style>
+            .btn{
+                transition-duration: 0.4s;
+                padding: 10px 24px;
+                border-radius: 12px;
+            }
+            .btn .btn:hover{
+                background-color:  #4CAF50;
+                color: white;
+            }
+            body{
+                background-color: #a6dff4;
+            }
+            form{
+                background-color: white;
+                height: 500px;
+            }
+        </style>
+        <title>New Subject</title>
+    </h:head>
+    <body>
+         <h:outputScript rendered="#{course.success}">
+        alert("Successfully!!!");
+    </h:outputScript>
+    <h:outputScript rendered="#{course.message}">
+        alert("Failed! Please try again. ");
+    </h:outputScript>
+        <div align="center">
+            <h1>Add New Course</h1>
+            <h:form>
+                <table>
+                     <h1>Course Information</h1>
+                    <tr>
+                        <td>Course Code:</td>
+                        <td><h:inputText value="#{courseType.courseCode}"/><br/></td>
+                    </tr>
+                    <tr>
+                        <td>Course Name:</td>
+                        <td><h:inputText value="#{courseType.courseName}" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td>Credit Hour:</td>
+                        <td><h:selectOneMenu value="#{courseType.creditHour}">
+                                <f:selectItem itemValue="1" itemLabel="1"/>
+                                <f:selectItem itemValue="2" itemLabel="2"/>
+                                <f:selectItem itemValue="3" itemLabel="3"/>
+                            </h:selectOneMenu><br/></td>
+                    </tr>
+                <br/>
+                    <tr>
+                        <td>Lecture duration :</td>
+                        <td><h:selectOneMenu value="#{courseType.courseDuration}">
+                                <f:selectItem itemValue="1.0" itemLabel="1.0 hours"/>
+                                <f:selectItem itemValue="1.5" itemLabel="1.5 hours"/>
+                                <f:selectItem itemValue="2.0" itemLabel="2.0 hours"/>
+                                <f:selectItem itemValue="2.5" itemLabel="2.5 hours"/>
+                                <f:selectItem itemValue="3.0" itemLabel="3.0 hours"/>
+                            </h:selectOneMenu></td>
+                      </tr>
+                    <br/>
+                    <tr>
+                        <td>Tutorial duration :</td>
+                        <td><h:selectOneMenu value="#{courseType.courseDuration}">
+                                <f:selectItem itemValue="1.0" itemLabel="1.0 hours"/>
+                                <f:selectItem itemValue="1.5" itemLabel="1.5 hours"/>
+                                <f:selectItem itemValue="2.0" itemLabel="2.0 hours"/>
+                                <f:selectItem itemValue="2.5" itemLabel="2.5 hours"/>
+                                <f:selectItem itemValue="3.0" itemLabel="3.0 hours"/>
+                            </h:selectOneMenu></td>
+                    </tr>
+                    <tr><td>Practical duration :</td>
+                        <td>
+                             <h:selectOneMenu value="#{courseType.courseDuration}">
+                    <f:selectItem itemValue="1.0" itemLabel="1.0 hours"/>
+                    <f:selectItem itemValue="1.5" itemLabel="1.5 hours"/>
+                    <f:selectItem itemValue="2.0" itemLabel="2.0 hours"/>
+                    <f:selectItem itemValue="2.5" itemLabel="2.5 hours"/>
+                    <f:selectItem itemValue="3.0" itemLabel="3.0 hours"/>
+                </h:selectOneMenu></td>
+                    </tr>
+                  
+                </table>
+   
+                <br/>
+                <h:commandButton action="#{course.insertCourse()}" value="Submit">
+                    <f:param name="courseCode" value="#{courseType.courseCode}" />
+                    <f:param name="courseName" value="#{courseType.courseName}" />
+                    <f:param name="creditHour" value="#{courseType.creditHour}" />
+                    <f:param name="lecture" value="L"/>
+                    <f:param name="lectureTime" value="#{courseType.courseDuration}"/>
+                    <f:param name="tutorial" value="T"/>
+                     <f:param name="courseType" value="L"/>
+                    <f:param name="lectureTime" value="#{courseType.courseDuration}"/>
+                    <f:param name="courseType" value="T"/>
+                     <f:param name="tutorialTime" value="#{courseType.courseDuration}"/>
+                    <f:param name="courseType" value="P"/>
+                     <f:param name="practicalTime" value="#{courseType.courseDuration}"/>
+                </h:commandButton>
+                <h:commandButton action="step2Course" value="Done"/>
+            </h:form>
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <style>
+            .btn{
+                transition-duration: 0.4s;
+                padding: 10px 24px;
+                border-radius: 12px;
+            }
+            .btn .btn:hover{
+                background-color:  #4CAF50;
+                color: white;
+            }
+            body{
+                background-color: #a6dff4;
+            }
+            form{
+                background-color: white;
+                height: 200px;
+                width: 230px;
+            }
+        </style>
+        <title>Main Menu</title>
+    </h:head>
+    <h:body>
+        <div align="center" class="btn">
+             <h1>Main Menu</h1>
+            <h:form>
+               
+                <br/>
+                <h:commandButton action ="step1SchoolDetails" value = "Create New" styleClass="btn"/><br/><br/>
+                <h:commandButton action="EditInfo" value="Edit Information" styleClass="btn"/><br/><br/>
+                <h:commandButton action ="login" value="Back" styleClass="btn"/>
+                
+            </h:form>
+            </div>
+    </h:body>
+</html>
+

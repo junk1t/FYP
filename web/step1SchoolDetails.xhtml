@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <style>
+            body{
+                background-color: #a6dff4;
+            }
+            form{
+                background-color: white;
+                height: 500px;
+            }
+            .btn{
+                transition-duration: 0.4s;
+                padding: 10px 24px;
+                border-radius: 12px;
+
+            }
+            .btn .btn:hover{
+                background-color:  #4CAF50;
+                color: white;
+            }
+            .btn .btnn:hover{
+                background-color: red;
+                color: white;  
+            }
+            .btn .btnn{
+                 border-radius: 12px;
+                padding: 10px 24px;
+            }
+
+        </style>
+        <title>Step 1: School Details</title>
+    </h:head>
+    <h:body>
+        <div align="center" class="btn">
+             <h1>Step 1: School Details</h1>
+            <h:form >
+               
+                <table>
+
+                    <tr>
+                        <td> School Name:</td>
+                        <td><input type="text" name="schoolName" value="" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td> Academic Year: </td>
+                        <td><input type="text" name="academicYear" value="" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td> Number of days:</td>
+                        <td> <select name="noOfDays" size="1">
+                                <option>3-6</option>
+                                <option>4-6</option>
+                            </select><br/></td>
+                    </tr>
+                    <tr>
+                        <td>Start Time:</td>
+                        <td> <input type="text" name="startTime" value="" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td>End Time:</td>
+                        <td><input type="text" name="EndTime" value="" /><br/></td>
+                    </tr>
+                    <br/>
+                </table>
+                <h:commandButton action="step2Course" value ="Next" styleClass="btn"/>
+                <h:commandButton action="menu" value="Back" styleClass="btnn" />
+
+
+            </h:form>
+        </div>
+    </h:body>
+</html>
+
