@@ -199,7 +199,7 @@ public class VenueDA implements Serializable {
             System.out.println(e);
         }
 
-        return "/EditInfo.xhtml?faces-redirect=true";
+        return "/selectVenue.xhtml?faces-redirect=true";
     }
 
     public String deleteVenue() {

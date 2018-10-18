@@ -4,25 +4,30 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-         <style>
+        <style>
             .order-table{   
                 border-collapse:collapse;
+                 overflow-y: scroll;
+                 overflow-x: scroll;
                 
+
             }
             .order-table-header{
                 text-align:center;
                 background:none repeat scroll 0 0 #E5E5E5;
                 border-bottom:1px solid #BBBBBB;
                 padding:16px;
+                  max-height: 10em;
             }
             .order-table-odd-row{
                 text-align:center;
-                background:none repeat scroll 0 0 #FFFFFFF;
+                overflow-y: scroll;
                 border-top:1px solid #BBBBBB;
+               
             }
             .order-table-even-row{
                 text-align:center;
-                background:none repeat scroll 0 0 #F9F9F9;
+                 overflow-y: scroll;
                 border-top:1px solid #BBBBBB;
             }
 
@@ -32,23 +37,25 @@
             form{
                 background-color: white;
                 height: 500px;
+                width: 900px;
             }
+          
             
           
-
         </style>
-        <title>Select Staff</title>
+     
+        <title>Select Tutorial Group</title>
     </h:head>
-    <h:body>
-        <div align="center">
-             <h1>Available Tutorial Group</h1>
-        <h:form><br/>
-               
+    <h:body >
+        <div align="center" >
+            <h1>Available Tutorial Group</h1>
+            <h:form><br/>
+
                 <h:dataTable value = "#{viewAll.allTutorialGroup}" var = "g"
                              styleClass="order-table"
                              headerClass="order-table-header"
-                             rowClasses="order-table-odd-row,order-table-even-row">
-                   
+                             rowClasses="order-table-odd-row,order-table-even-row" rows="10" style=" ">
+
                     <h:column> 
                         <f:facet name="header">Group ID</f:facet>
                             #{g.groupID}
@@ -87,11 +94,12 @@
                         </h:commandButton>
                     </h:column>
                 </h:dataTable>
+                <br/>
+                <h:commandButton value="Done" action="EditInfo"/>
 
 
-              
-        </h:form>
-    </div>
+            </h:form>
+        </div>
     </h:body>
 </html>
 

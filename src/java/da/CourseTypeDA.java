@@ -205,7 +205,7 @@ public class CourseTypeDA implements Serializable {
             System.out.println(e);
         }
 
-        return "/EditInfo.xhtml?faces-redirect=true";
+        return "/selectCourse.xhtml?faces-redirect=true";
     }
 
     public void addCourseInfo() throws SQLException, ClassNotFoundException {

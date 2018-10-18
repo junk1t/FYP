@@ -34,7 +34,7 @@
                 height: 300px;
                 width: 700px;
             }
-           
+
         </style>
         <title>Select Programme and Cohort</title>
     </h:head>
@@ -43,7 +43,7 @@
             <h1>Available Programme</h1>
             <h:form >
                 <br/>
-                
+
 
                 <h:dataTable value = "#{viewAll.allProgramme}" var = "p"
                              styleClass="order-table"
@@ -76,10 +76,13 @@
                         </h:commandButton>
                     </h:column>
                 </h:dataTable>
+                <br/>
+                
+                 <h:commandButton value="Done" action="EditInfo"/>
             </h:form>
-              <h1>Available Cohort</h1>
-                <h:form >
-              <br/>
+            <h1>Available Cohort</h1>
+            <h:form >
+                <br/>
 
                 <h:dataTable value = "#{viewAll.allCohort}" var = "c"
                              styleClass="order-table"
@@ -112,10 +115,12 @@
                         </h:commandButton>
                     </h:column>
                 </h:dataTable>
-             
-              
+                <br/>
+                 <h:commandButton value="Done" action="EditInfo"/>
+            
             </h:form>
-               <br/><br/>
+              
+            <br/><br/>
         </div>
     </h:body>
 </html>

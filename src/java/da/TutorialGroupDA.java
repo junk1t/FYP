@@ -217,7 +217,7 @@ public class TutorialGroupDA implements Serializable {
             System.out.println(e);
         }
 
-        return "/EditInfo.xhtml?faces-redirect=true";
+        return "/selectGroups.xhtml?faces-redirect=true";
     }
 
     public String getMaxID() {

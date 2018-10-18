@@ -175,7 +175,7 @@ public class CohortDA implements Serializable {
             System.out.println(e);
         }
 
-        return "/EditInfo.xhtml?faces-redirect=true";
+        return "/selectProgrammeCohort.xhtml?faces-redirect=true";
     }
 
     public String getMaxID() {
