@@ -6,4 +6,16 @@
     <endWork>20.0</endWork>
     <remark>CS</remark>
   </staff>
+  <staff staffID="S1002">
+    <name>Steve</name>
+    <startWork>8.0</startWork>
+    <endWork>20.0</endWork>
+    <remark>CS</remark>
+  </staff>
+  <staff staffID="S1003">
+    <name>Javier</name>
+    <startWork>8.0</startWork>
+    <endWork>20.0</endWork>
+    <remark>CS</remark>
+  </staff>
 </staffs>

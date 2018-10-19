@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -26,7 +28,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Document;
-
+@ManagedBean
+@SessionScoped
 public class generateXML {
 
     //Course
@@ -42,16 +45,18 @@ public class generateXML {
     private TutorialGroupDA tgda = new TutorialGroupDA();
     private final String filePath = "C:\\Users\\REPUBLIC\\Documents\\NetBeansProjects\\New Folder\\FYP\\src\\java\\xml\\";
 
-    public void generateCourseXML() {
+    public void generateCourseXML(List<String> courseList) {
         List<CourseType> list = new ArrayList<CourseType>();
         List<CourseType> recordList = new ArrayList<CourseType>();
         String xmlFilePath = filePath + "Course.xml";
 
         try {
-            list = cda.getAllRecords();
-            for (CourseType item : list) {
-                CourseType record = new CourseType(item.getCourseID(), item.getCourseType(), item.getCourseDuration(), item.getCourseCode());
-                recordList.add(record);
+            for (String id : courseList) {
+                list = cda.getSelectedRecords(id);
+                for (CourseType item : list) {
+                    CourseType record = new CourseType(item.getCourseID(), item.getCourseType(), item.getCourseDuration(), item.getCourseCode());
+                    recordList.add(record);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(generateXML.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,18 +118,19 @@ public class generateXML {
         }
 
     }
-    
-    
-    public void generateVenueXML(String venueID) {
+
+    public void generateVenueXML(List<String> venueList) {
         List<Venue> list = new ArrayList<Venue>();
         List<Venue> recordList = new ArrayList<Venue>();
         String xmlFilePath = filePath + "Venue.xml";
 
         try {
-            list = vda.getSelectedRecords(venueID);
-            for (Venue item : list) {
-                Venue record = new Venue(item.getVenueID(), item.getBlock(), item.getVenueType(), item.getCapacity(), item.getRemark());
-                recordList.add(record);
+            for (String id : venueList) {
+                list = vda.getSelectedRecords(id);
+                for (Venue item : list) {
+                    Venue record = new Venue(item.getVenueID(), item.getBlock(), item.getVenueType(), item.getCapacity(), item.getRemark());
+                    recordList.add(record);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(generateXML.class.getName()).log(Level.SEVERE, null, ex);
@@ -187,16 +193,18 @@ public class generateXML {
 
     }
 
-    public void generateStaffXML(String staffID) {
+    public void generateStaffXML(List<String> staffList) {
         List<Staff> list = new ArrayList<Staff>();
         List<Staff> recordList = new ArrayList<Staff>();
         String xmlFilePath = filePath + "Staff.xml";
 
         try {
-            list = sda.getSelectedRecords(staffID);
-            for (Staff item : list) {
-                Staff record = new Staff(item.getStaffID(), item.getStaffName(), item.getRemark(), item.getStartWork(), item.getEndWork());
-                recordList.add(record);
+            for (String id : staffList) {
+                list = sda.getSelectedRecords(id);
+                for (Staff item : list) {
+                    Staff record = new Staff(item.getStaffID(), item.getStaffName(), item.getRemark(), item.getStartWork(), item.getEndWork());
+                    recordList.add(record);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(generateXML.class.getName()).log(Level.SEVERE, null, ex);
@@ -264,18 +272,18 @@ public class generateXML {
 
     }
 
-    
-    
-    public void generateTutorialGroupXML(String groupID) {
+    public void generateTutorialGroupXML(List<String> tgList) {
         List<TutorialGroup> list = new ArrayList<TutorialGroup>();
         List<TutorialGroup> recordList = new ArrayList<TutorialGroup>();
         String xmlFilePath = filePath + "TutorialGroup.xml";
 
         try {
-            list = tgda.getSelectedRecords(groupID);
-            for (TutorialGroup item : list) {
-                TutorialGroup record = new TutorialGroup(item.getGroupID(), item.getStudyYear(), item.getGroupNumber(),item.getSize(), item.getProgrammeID(), item.getCohortID());
-                recordList.add(record);
+            for (String id : tgList) {
+                list = tgda.getSelectedRecords(id);
+                for (TutorialGroup item : list) {
+                    TutorialGroup record = new TutorialGroup(item.getGroupID(), item.getStudyYear(), item.getGroupNumber(), item.getSize(), item.getProgrammeID(), item.getCohortID());
+                    recordList.add(record);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(generateXML.class.getName()).log(Level.SEVERE, null, ex);
@@ -321,7 +329,7 @@ public class generateXML {
                 Element programmeID = document.createElement("programmeID");
                 programmeID.appendChild(document.createTextNode(item.getProgrammeID()));
                 tutorialGroup.appendChild(programmeID);
-                
+
                 //cohortID element
                 Element cohortID = document.createElement("cohortID");
                 cohortID.appendChild(document.createTextNode(item.getCohortID()));

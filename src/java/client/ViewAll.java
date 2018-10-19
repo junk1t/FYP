@@ -29,7 +29,7 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "viewAll")
 @SessionScoped
 public class ViewAll implements Serializable{
-
+ 
     //GET VENUE
     public List<Venue> getAllVenue() throws ClassNotFoundException, SQLException {
 

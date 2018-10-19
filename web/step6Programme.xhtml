@@ -53,9 +53,7 @@
             <h:form>
                 <br/>
                
-                <h:commandButton action="newProgramme" value="+New Programme" styleClass="btn"/>
-                <h:commandButton action="selectProgrammeCohort" value="Edit Programme" styleClass="btn"/>
-                <h:commandButton action="step7Cohort" value="Next" styleClass="btn"/><br/>
+                <h:commandButton action="#{selection.generateAll()}" value="Next" styleClass="btn"/><br/>
                 <h3>Available Venues</h3>
                 <h:dataTable value = "#{viewAll.allProgramme}" var = "p"
                              styleClass="order-table"
@@ -85,8 +83,6 @@
               <h1>Cohort</h1>
             <h:form>
                <br/>
-                <h:commandButton action="newCohort" value="+New Cohort" styleClass="btn"/>
-                <h:commandButton action="selectProgrammeCohort" value="Edit Cohort" styleClass="btn"/><br/>
                 <h3>Available Venues</h3>
                 <h:dataTable value = "#{viewAll.allCohort}" var = "c"
                              styleClass="order-table"

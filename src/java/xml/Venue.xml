@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <venues>
-  <venue venueID="H303">
-    <block>H</block>
-    <venueType>Room</venueType>
-    <capacity>30</capacity>
+  <venue venueID="B223">
+    <block>B</block>
+    <venueType>Lab</venueType>
+    <capacity>24</capacity>
+  </venue>
+  <venue venueID="B224">
+    <block>B</block>
+    <venueType>Lab</venueType>
+    <capacity>24</capacity>
+  </venue>
+  <venue venueID="D203A">
+    <block>D</block>
+    <venueType>Lab</venueType>
+    <capacity>24</capacity>
   </venue>
 </venues>

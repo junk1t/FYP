@@ -7,4 +7,11 @@
     <programmeID>P1001</programmeID>
     <cohortID>CH1001</cohortID>
   </tutorialGroup>
+  <tutorialGroup groupID="G1002">
+    <studyYear>3</studyYear>
+    <groupNumber>4</groupNumber>
+    <size>4</size>
+    <programmeID>P1001</programmeID>
+    <cohortID>CH1001</cohortID>
+  </tutorialGroup>
 </tutorialGroups>

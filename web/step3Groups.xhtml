@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <style>
-      
+
         .order-table{   
             border-collapse:collapse;
             overflow-y: auto;
@@ -47,29 +47,62 @@
             background-color:  #4CAF50;
             color: white;
         }
-       
+
     </style>
+
+    <script>
+        var select_all = document.getElementById("form:select_all").onclick; //select all checkbox
+        var checkboxes = document.getElementsByClassName("form:checkbox"); //checkbox items
+
+        /* <![CDATA[ */
+//select all checkboxes
+        window.onload function(){
+            select_all.addEventListener("change", function (e) {
+                for (i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = select_all.checked;
+                }
+            });
+
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].addEventListener('change', function (e) { //".checkbox" change 
+                    //uncheck "select all", if one of the listed checkbox item is unchecked
+                    if (this.checked == false) {
+                        select_all.checked = false;
+                    }
+                    //check "select all" if all checkbox items are checked
+                    if (document.querySelectorAll('.checkbox:checked').length == checkboxes.length) {
+                        select_all.checked = true;
+                    }
+                });
+            }
+        }
+        /* ]]> */
+    </script>
     <h:head>
         <title>Step 3:Groups</title>
     </h:head>
-    <h:body>
+    <h:body>    
         <div align="center" class="btn">
             <h1>Step 3: Tutorial Group</h1>
-            <h:form>
+            <h:form id="form">
 
-                <h:commandButton action="newGroup" value="+New Group" styleClass="btn"/>
-                <h:commandButton action="selectGroup" value="Edit Group" styleClass="btn"/>
-                <h:commandButton action="step4Staff" value="Next" styleClass="btn"/><br/><br/>
+                <h:commandButton action="#{selection.submitGroups()}" value="Next" styleClass="btn"/><br/><br/>
 
                 <h3>Available Tutorial Group</h3>
                 <h:dataTable value = "#{viewAll.allTutorialGroup}" var = "g"
                              styleClass="order-table"
                              headerClass="order-table-header"
                              rowClasses="order-table-odd-row,order-table-even-row"
-                             class="table table-bordered table-striped">
+                             class="table table-bordered table-striped"
+                             id="table">
                     <h:column> 	
-                        <f:facet name="header">Selection</f:facet>
-                        <h:selectBooleanCheckbox onclick="#{selection.addToList(c.courseID)}"/>
+                        <f:facet name="header">Select All
+                            <h:selectBooleanCheckbox id="select_all"></h:selectBooleanCheckbox>
+                        </f:facet>
+
+                        <h:selectBooleanCheckbox class="checkbox" value="#{selection.checked[g.groupID]}"></h:selectBooleanCheckbox>
+
                     </h:column>
                     <h:column> 
                         <f:facet name="header">Group ID</f:facet>

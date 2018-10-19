@@ -52,10 +52,8 @@
             <h1>Step 4: Staff</h1>
             <h:form>
 
-                <h:commandButton action="newStaff" value="+New Staff" styleClass="btn"/>
-                <h:commandButton action="selectStaff" value="Edit Staff" styleClass="btn"/>
-                <h:commandButton action="step5Venue" value="Next" styleClass="btn"/><br/><br/><br/>
-
+                <h:commandButton action="#{selection.submitStaff()}" value="Next" styleClass="btn"/><br/><br/><br/>
+                
                 <h3>Available Course</h3>
                 <h:dataTable value = "#{viewAll.allStaff}" var = "s"
                              styleClass="order-table"
@@ -63,9 +61,9 @@
                              rowClasses="order-table-odd-row,order-table-even-row">
                     <h:column> 	
                         <f:facet name="header">Selection</f:facet>
-                        <h:selectManyCheckbox>
-                            <f:selectItem itemValue="" itemLabel="" />
-                        </h:selectManyCheckbox>
+                        <h:selectBooleanCheckbox value="#{selection.checked[s.staffID]}">
+
+                        </h:selectBooleanCheckbox>
                     </h:column>
                     <h:column> 
                         <f:facet name="header">Staff ID</f:facet>
