@@ -159,7 +159,7 @@ public class TutorialGroupDA implements Serializable {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return "/step3Groups.xhtml?faces-redirect=true";
+        return "/selectGroups.xhtml?faces-redirect=true";
     }
 
     public String editTutorialGroup() {

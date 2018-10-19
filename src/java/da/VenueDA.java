@@ -110,6 +110,7 @@ public class VenueDA implements Serializable {
     }
 
     public void insertVenue() throws SQLException {
+        Connection connect = null;
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         String venueID = params.get("venueID");
@@ -117,20 +118,15 @@ public class VenueDA implements Serializable {
         String venueType = params.get("venueType");
         String capacity = params.get("capacity");
         String remark = params.get("remark");
-        Connection connect = null;
-
-        String url = "jdbc:derby://localhost:1527/schedule";
-        String username = "schedule";
-        String password = "schedule";
-
+        String sql = "INSERT INTO VENUE(venueID,block,venueType,capacity,remark) VALUES(?,?,?,?,?)";
         try {
-            connect = DriverManager.getConnection(url, username, password);
+            connect = DBConnection.getConnection();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         try {
-            PreparedStatement pstmt = connect.prepareStatement("INSERT INTO VENUE VALUES(?,?,?,?,?)");
-
+            PreparedStatement pstmt = connect.prepareStatement(sql);
+            
             pstmt.setString(1, venueID);
             pstmt.setString(2, block);
             pstmt.setString(3, venueType);
@@ -146,6 +142,7 @@ public class VenueDA implements Serializable {
             this.success = false;
             System.out.println(ex.getMessage());
         }
+        DBConnection.close(connect);
 
     }
 
@@ -216,7 +213,7 @@ public class VenueDA implements Serializable {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return "/EditInfo.xhtml?faces-redirect=true";
+        return "/selectVenue.xhtml?faces-redirect=true";
     }
 
 }

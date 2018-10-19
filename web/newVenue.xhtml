@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-         <style>
+        <style>
             .btn{
                 transition-duration: 0.4s;
                 padding: 10px 24px;
@@ -33,10 +33,10 @@
             alert("Error!!!");
         </h:outputScript>
         <div align="center">
-                <h1>New Venue</h1>
+            <h1>New Venue</h1>
             <h:form>
                 <table>
-                <br/>
+                    <br/>
                     <tr>
                         <td>Venue ID:</td>
                         <td><h:inputText value="#{venue.venueID}" /><br/></td>
@@ -47,7 +47,12 @@
                     </tr>
                     <tr>
                         <td>Venue Type:</td>
-                        <td><h:inputText value="#{venue.venueType}" /><br/></td>
+                        <td><h:selectOneMenu value="#{venue.venueType}">
+                                <f:selectItem itemValue="Hall" itemLabel="Hall"/>
+                                <f:selectItem itemValue="Room" itemLabel="Room"/>
+                                <f:selectItem itemValue="Lab" itemLabel="Lab"/>
+                            </h:selectOneMenu>
+                            <br/></td>
                     </tr>
                     <tr>
                         <td>Capacity:</td>

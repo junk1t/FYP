@@ -209,7 +209,7 @@ public class StaffDA implements Serializable {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return "/EditInfo.xhtml?faces-redirect=true";
+        return "/selectStaff.xhtml?faces-redirect=true";
     }
 
     public String editStaff() {

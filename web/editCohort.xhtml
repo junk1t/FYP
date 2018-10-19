@@ -45,10 +45,10 @@
                     </tr>
                   
                 </table><br/>
-                <h:commandButton action="#{venueDA.updateVenue}" value="Update">
-                    <f:param name="venueID" value="#{editVenue.venueID}" />
-                    <f:param name="block" value="#{editVenue.block}" />
-                    <f:param name="venueType" value="#{editVenue.venueType}" />    
+                <h:commandButton action="#{cohortDA.updateCohort()}" value="Update">
+                    <f:param name="venueID" value="#{editCohort.cohortID}" />
+                    <f:param name="block" value="#{editCohort.years}" />
+                    <f:param name="venueType" value="#{editCohort.month}" />    
                 </h:commandButton>
                 <h:commandButton action="EditInfo" value="Done"/>
             </h:form>

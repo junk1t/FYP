@@ -96,7 +96,7 @@ public class ProgrammeDA implements Serializable {
         } catch (Exception e) {
          System.out.println(e);
         }
-       return "/EditInfo.xhtml?faces-redirect=true";   
+       return "/selectProgrammeCohort.xhtml?faces-redirect=true";   
 }
        public String editProgramme() {
         FacesContext fc = FacesContext.getCurrentInstance();

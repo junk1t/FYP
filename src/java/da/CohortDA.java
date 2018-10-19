@@ -127,7 +127,7 @@ public class CohortDA implements Serializable {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return "/EditInfo.xhtml?faces-redirect=true";
+        return "/selectProgrammeCohort.xhtml?faces-redirect=true";
     }
 
     public String editCohort() {
@@ -153,7 +153,7 @@ public class CohortDA implements Serializable {
         return "/editCohort.xhtml?faces-redirect=true";
     }
 
-    public String updateVenue() {
+    public String updateCohort() {
 
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
