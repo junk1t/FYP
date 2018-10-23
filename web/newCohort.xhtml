@@ -11,7 +11,7 @@
                 padding: 10px 24px;
                 border-radius: 12px;
             }
-            .btn .btn:hover{
+            .btn .green:hover{
                 background-color:  #4CAF50;
                 color: white;
             }
@@ -22,17 +22,21 @@
                 background-color: white;
                 height: 500px;
             }
+             .btn .blue:hover{
+                background-color: dodgerblue;
+                color: white;
+            }
         </style>
         <title>Add New Cohort</title>
     </h:head>
     <h:body>
-        <h:outputScript rendered="#{TutorialGroupDA.success}">
+        <h:outputScript rendered="#{cohortDA.success}">
             alert("Successfully!!!");
         </h:outputScript>
-        <h:outputScript rendered="#{TutorialGroupDA.message}">
+        <h:outputScript rendered="#{cohortDA.message}">
             alert("Failed! Please try again.");
         </h:outputScript>
-         <div align="center">
+         <div align="center" class="btn">
                 <h1>New Cohort</h1>
             <h:form>
                 <table>
@@ -43,15 +47,15 @@
                     </tr>
                     <tr>
                         <td>Year:</td>
-                        <td><h:inputText value="#{cohort.years}" /><br/></td>
+                        <td><h:inputText value="#{cohort.years}"  requiredMessage="Invalid Input" maxlength="4"/> *2018  <br/></td>
                     </tr>
                     <tr>
                         <td>Month:</td>
-                        <td><h:inputText value="#{cohort.month}" /><br/></td>
+                        <td><h:inputText value="#{cohort.month}"  requiredMessage="Invalid Input" maxlength="2"/> *1 for January<br/></td>
                     </tr>
                     
                 </table><br/>
-                <h:commandButton action="#{cohortDA.insertCohort()}" value="Submit">
+                <h:commandButton action="#{cohortDA.insertCohort()}" value="Submit" styleClass="btn green">
                 
                     <f:param name="years" value="#{cohort.years}" />
                     <f:param name="month" value="#{cohort.month}" />
@@ -59,7 +63,7 @@
                     
                 </h:commandButton>
 
-                <h:commandButton action="step6Programme" value="Done"/>
+                <h:commandButton action="step1Programme" value="Done" styleClass="btn blue"/>
             </h:form>
 
         </div>

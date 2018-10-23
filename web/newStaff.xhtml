@@ -49,29 +49,27 @@
                         <td><h:inputText value="#{staff.staffName}" /><br/></td>
                     </tr>
                     <tr>
-                        <td>  <h1>Work Time</h1></td>
+                        <td>Block Day</td>
+                        <td><h:inputText value="#{staff.blockday}" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td>Block Start</td>
+                        <td><h:inputText value="#{staff.blockStart}" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td>Block Duration</td>
+                        <td><h:inputText value="#{staff.blockDuration}" /><br/></td>
                     </tr>
 
-                    <tr>
-                        <td>Start Time:</td>
-                        <td><h:inputText value="#{staff.startWork}" /><br/></td>
-                    </tr>
-                    <tr>
-                        <td>End Time:</td>
-                        <td><h:inputText value="#{staff.endWork}" /><br/></td>
-                    </tr>
-                    <tr>
-                        <td>Remark:</td>
-                        <td><h:inputText value="#{staff.remark}" /><br/></td>
-                    </tr>
+                    
 
                 </table>
                 <br/><h:commandButton action="#{StaffDA.insertStaff()}" value="Submit">
                     <f:param name="staffID" value="#{staff.staffID}" />
                     <f:param name="staffName" value="#{staff.staffName}" />
-                    <f:param name="startWork" value="#{staff.startWork}" />
-                    <f:param name="endWork" value="#{staff.endWork}" />
-                    <f:param name="remark" value="#{staff.remark}" />
+                    <f:param name="blockDay" value="#{staff.blockday}" />
+                    <f:param name="blockStart" value="#{staff.blockStart}" />
+                    <f:param name="blockDuration" value="#{staff.blockDuration}" />
                 </h:commandButton>
 
 

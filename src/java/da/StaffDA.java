@@ -4,16 +4,15 @@
  * and open the template in the editor.
  */
 package da;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import domain.Class;
-import domain.Cohort;
 import domain.Staff;
 import domain.StaffDetails;
-import domain.TutorialGroup;
 import java.io.Serializable;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -28,10 +27,10 @@ import javax.faces.context.FacesContext;
  *
  * @author Alex
  */
-
 @ManagedBean(name = "StaffDA")
 @SessionScoped
 public class StaffDA implements Serializable {
+
     public List<Staff> getSelectedRecords(String staffID) throws SQLException {
 
         Connection connect = null;
@@ -47,9 +46,9 @@ public class StaffDA implements Serializable {
                 Staff s = new Staff();
                 s.setStaffID(rs.getString(1));
                 s.setStaffName(rs.getString(2));
-                s.setStartWork(rs.getString(3));
-                s.setEndWork(rs.getString(4));
-                s.setRemark(rs.getString(5));
+                s.setBlockday(rs.getString(3));
+                s.setBlockStart(rs.getString(4));
+                s.setBlockDuration(rs.getString(4));
 
                 output.add(s);
 
@@ -62,7 +61,6 @@ public class StaffDA implements Serializable {
         return output;
 
     }
-
 
     public ArrayList<Class> getClassList(String staffID) throws SQLException {
         ArrayList<Class> classList = new ArrayList();
@@ -112,8 +110,6 @@ public class StaffDA implements Serializable {
 //     this.startWork = null;
 //       this.endWork = null;
 //   }
-
-    
 
     public void insertStaff() throws SQLException {
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -216,7 +212,7 @@ public class StaffDA implements Serializable {
         Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        
+
         String staffID = params.get("action");
         try {
             DB_connection obj_DB_connection = new DB_connection();
@@ -228,13 +224,17 @@ public class StaffDA implements Serializable {
             rs.next();
             obj_Staff.setStaffID(rs.getString("staffID"));
             obj_Staff.setStaffName(rs.getString("staffName"));
-            obj_Staff.setRemark(rs.getString("remark"));
+            obj_Staff.setBlockday(rs.getString("blockDay"));
+            obj_Staff.setBlockStart(rs.getString("blockStart"));
+            obj_Staff.setBlockDuration(rs.getString("blockDuration"));
 
             try {
+                
+                StaffDetails obj_StaffDetails = new StaffDetails();
                 ResultSet rss = st.executeQuery("select * from STAFFDETAILS where STAFFID = '" + staffID + "'");
                 rss.next();
-                obj_Staff.setStartWork(rss.getString("startWork"));
-                obj_Staff.setEndWork(rss.getString("endWork"));
+                obj_StaffDetails.setStarWork(rss.getString("startWork"));
+                obj_StaffDetails.setEndWork(rss.getString("endWork"));
 
                 sessionMap.put("editStaff", obj_Staff);
 

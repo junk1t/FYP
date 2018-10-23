@@ -23,31 +23,20 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "staff")
 public class Staff implements Serializable{
 
-    private String staffID, staffName, remark, startWork, endWork;
+    private String staffID, staffName, blockday, blockStart, blockDuration;
     private ArrayList<Class> classList;
 
     public Staff() {
 
     }
 
-    public Staff(String staffID, String staffName, String remark, String startWork, String endWork) {
+    public Staff(String staffID, String staffName, String blockday, String blockStart, String blockDuration) {
         this.staffID = staffID;
         this.staffName = staffName;
-        this.remark = remark;
-        this.startWork = startWork;
-        this.endWork = endWork;
-        this.classList = new ArrayList();
+        this.blockday = blockday;
+        this.blockStart = blockStart;
+        this.blockDuration = blockDuration;
     }
-    
-
-    public Staff(String staffID, String staffName, String remark) {
-        this.staffID = staffID;
-        this.staffName = staffName;
-        this.remark = remark;
-    }
-    
-   
-    
 
     public String getStaffID() {
         return staffID;
@@ -65,28 +54,28 @@ public class Staff implements Serializable{
         this.staffName = staffName;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getBlockday() {
+        return blockday;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setBlockday(String blockday) {
+        this.blockday = blockday;
     }
 
-    public String getStartWork() {
-        return startWork;
+    public String getBlockStart() {
+        return blockStart;
     }
 
-    public void setStartWork(String startWork) {
-        this.startWork = startWork;
+    public void setBlockStart(String blockStart) {
+        this.blockStart = blockStart;
     }
 
-    public String getEndWork() {
-        return endWork;
+    public String getBlockDuration() {
+        return blockDuration;
     }
 
-    public void setEndWork(String endWork) {
-        this.endWork = endWork;
+    public void setBlockDuration(String blockDuration) {
+        this.blockDuration = blockDuration;
     }
 
     public ArrayList<Class> getClassList() {

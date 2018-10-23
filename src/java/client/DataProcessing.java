@@ -12,7 +12,7 @@ public class DataProcessing {
      */
     public static void main(String[] args) {
         generateXML test = new generateXML();
-        test.generateCourseXML();
+//        test.generateCourseXML();
         test.generateStaffXML("S1001");
         test.generateVenueXML("H303");
         test.generateTutorialGroupXML("G1001");

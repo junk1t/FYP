@@ -5,6 +5,7 @@
  */
 package da;
 
+import domain.Course;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -13,25 +14,27 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseDA {
+public class CourseDA { 
+    
+    
 
-    public List<CourseType> getAllRecords() throws SQLException {
+    public List<Course> getAllRecords() throws SQLException {
 
         Connection connect = null;
 
-        List<CourseType> output = new ArrayList<CourseType>();
+        List<Course> output = new ArrayList<>();
         try {
             connect = DBConnection.getConnection();
-            PreparedStatement pstmt = connect.prepareStatement("SELECT * FROM coursetype");
+            PreparedStatement pstmt = connect.prepareStatement("SELECT * FROM course");
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                CourseType CT = new CourseType();
-                CT.setCourseID(rs.getString(1));
-                CT.setCourseType(rs.getString(2));
-                CT.setCourseDuration(rs.getString(3));
-                CT.setCourseCode(rs.getString(4));
+                Course C = new Course();
+                C.setCourseCode(rs.getString(1));
+                C.setCourseName(rs.getString(2));
+                C.setCreditHour(rs.getInt(3));
+            
 
-                output.add(CT);
+                output.add(C);
             }
         } catch (SQLException e) {
             e.printStackTrace();

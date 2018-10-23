@@ -25,6 +25,7 @@ public class CourseType implements Serializable{
     private int creditHour;
 
 
+
     public CourseType() {
 
     }
@@ -35,15 +36,34 @@ public class CourseType implements Serializable{
         this.courseDuration = courseDuration;
         this.courseCode = courseCode;
     }
-    
 
-    public CourseType(String courseCode, String courseName, int creditHour) {
+    public CourseType(String courseID, String courseType, String courseDuration, String courseCode, String courseName, int creditHour) {
+        this.courseID = courseID;
+        this.courseType = courseType;
+        this.courseDuration = courseDuration;
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.creditHour = creditHour;
-
-
     }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public int getCreditHour() {
+        return creditHour;
+    }
+
+    public void setCreditHour(int creditHour) {
+        this.creditHour = creditHour;
+    }
+    
+    
+    
 
     public String getCourseID() {
         return courseID;
@@ -60,23 +80,7 @@ public class CourseType implements Serializable{
     public void setCourseType(String courseType) {
         this.courseType = courseType;
     }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public void setCreditHour(int creditHour) {
-        this.creditHour = creditHour;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public int getCreditHour() {
-        return creditHour;
-    }
-
+    
     public String getCourseDuration() {
         return courseDuration;
     }

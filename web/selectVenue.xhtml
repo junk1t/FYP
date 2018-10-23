@@ -38,6 +38,12 @@
         <title>Select Venue</title>
     </h:head>
     <h:body>
+        <h:outputScript rendered="#{venueDA.update}">
+            alert("Updated!");
+        </h:outputScript>
+          <h:outputScript rendered="#{venueDA.delete}">
+            alert("Venue Deleted!");
+        </h:outputScript>
         <div align="center">
             <h1>Available Venue</h1>
             <h:form>

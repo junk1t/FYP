@@ -10,32 +10,36 @@
                 background-color: #a6dff4;
             }
             form{
-                background-color: white;
+                background-color: #a6dff4;
                 height: 400px;
                 width: 400px;
             }
             .btn{
                 transition-duration: 0.4s;
-                padding: 10px 24px;
-                border-radius: 12px;
+                padding: 20px 40px;
+                border:none;
+                width: 250px;
+                position: relative;
+                margin: 0 auto auto ;
             }
             .btn .btn:hover{
                 background-color:  #4CAF50;
                 color: white;
             }
+           
         </style>
         <title>Update Information</title>
     </h:head>
     <h:body>
-        <div align="center" class="btn" >
+        <div class="btn" >
             <h1>Select to Update</h1>
                 <h:form>
                     <br/>
+                    <h:commandButton action="selectProgrammeCohort" value="Programme and Cohort" styleClass="btn" /><br/><br/>
                     <h:commandButton action="selectCourse" value="Course" styleClass="btn"/><br/><br/>
                     <h:commandButton action="selectGroups" value="Tutorial Group" styleClass="btn"/><br/><br/>
                     <h:commandButton action="selectStaff" value="Staff" styleClass="btn"/><br/><br/>
                     <h:commandButton action="selectVenue" value="Venue" styleClass="btn"/><br/><br/>
-                    <h:commandButton action="selectProgrammeCohort" value="Programme and Cohort" styleClass="btn"/><br/><br/>
                     <h:commandButton action="menu" value="Back to Menu" styleClass="btn"/>
 
 

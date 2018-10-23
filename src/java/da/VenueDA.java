@@ -54,7 +54,7 @@ public class VenueDA implements Serializable {
     }
 
     //Get the alert message
-    boolean success, message;
+    boolean success, message, update, delete;
 
     public boolean isSuccess() {
         return success;
@@ -71,14 +71,22 @@ public class VenueDA implements Serializable {
     public void setMessage(boolean message) {
         this.message = message;
     }
-//
-//    public void reset() {
-//        this.venueID = null;
-//        this.block = null;
-//        this.venueType = null;
-//        this.capacity = 0;
-//        this.remark = null;
-//    }
+     public boolean isUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
+    }
+     public boolean isDelete() {
+        return delete;
+    }
+
+    public void setDelete(boolean delete) {
+        this.delete = delete;;
+    }
+    
+    
 
     public List<Venue> getSelectedRecords(String venueID) throws SQLException {
         Connection connect = null;
@@ -118,28 +126,33 @@ public class VenueDA implements Serializable {
         String venueType = params.get("venueType");
         String capacity = params.get("capacity");
         String remark = params.get("remark");
+
         String sql = "INSERT INTO VENUE(venueID,block,venueType,capacity,remark) VALUES(?,?,?,?,?)";
+
         try {
             connect = DBConnection.getConnection();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        try {
-            PreparedStatement pstmt = connect.prepareStatement(sql);
-            
-            pstmt.setString(1, venueID);
-            pstmt.setString(2, block);
-            pstmt.setString(3, venueType);
-            pstmt.setString(4, capacity);
-            pstmt.setString(5, remark);
+            try {
+                PreparedStatement pstmt = connect.prepareStatement(sql);
+               
+                pstmt.setString(1, venueID);
+                pstmt.setString(2, block);
+                pstmt.setString(3, venueType);
+                pstmt.setString(4, capacity);
+                pstmt.setString(5, remark);
 
-            pstmt.executeUpdate();
-            this.success = true;
-            this.message = false;
+                pstmt.executeUpdate();
+                this.success = true;
+                this.message = false;
+            } catch (SQLException ex) {
 
+                this.success = false;
+                this.message = true;
+                System.out.println(ex.getMessage());
+            }
         } catch (SQLException ex) {
-            this.message = true;
+
             this.success = false;
+            this.message = true;
             System.out.println(ex.getMessage());
         }
         DBConnection.close(connect);
@@ -172,7 +185,7 @@ public class VenueDA implements Serializable {
     }
 
     public String updateVenue() {
-
+        
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         String venueID = params.get("venueID");
@@ -191,15 +204,17 @@ public class VenueDA implements Serializable {
             ps.setString(4, remark);
             ps.setString(5, venueID);
             ps.executeUpdate();
-
+            this.update = true;
         } catch (Exception e) {
             System.out.println(e);
         }
 
         return "/selectVenue.xhtml?faces-redirect=true";
+        
     }
 
     public String deleteVenue() {
+       
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         String TVenueID = params.get("action");
@@ -210,6 +225,7 @@ public class VenueDA implements Serializable {
             ps.setString(1, TVenueID);
             System.out.println(ps);
             ps.executeUpdate();
+            this.delete = true;
         } catch (Exception e) {
             System.out.println(e);
         }

@@ -45,11 +45,11 @@
         }
     </style>
     <h:head>
-        <title>Step 4: Staff</title>
+        <title>Staff</title>
     </h:head>
     <h:body>
         <div align="center" class="btn">
-            <h1>Step 4: Staff</h1>
+            <h1>Staff</h1>
             <h:form>
                 <h:commandButton action="menu" value="Menu" styleClass="btn"/>
                 <h:commandButton action="newStaff" value="+New Staff" styleClass="btn"/>
@@ -76,16 +76,16 @@
                             #{s.staffName}
                     </h:column>
                     <h:column> 	
-                        <f:facet name="header">Remark</f:facet>
-                            #{s.remark}
+                        <f:facet name="header">Block Day</f:facet>
+                            #{s.blockday}
                     </h:column>
                     <h:column> 	
-                        <f:facet name="header">Start Time</f:facet>
-                            #{s.startWork}
+                        <f:facet name="header">Block Start</f:facet>
+                            #{s.blockStart}
                     </h:column>
                     <h:column> 	
-                        <f:facet name="header">End Time</f:facet>
-                            #{s.endWork}
+                        <f:facet name="header">Block Duration</f:facet>
+                            #{s.blockDuration}
                     </h:column>
 
                 </h:dataTable>

@@ -22,13 +22,13 @@
                 height: 500px;
             }
         </style>
-        <title>Facelet Title</title>
+        <title>Add New Programme</title>
     </h:head>
     <h:body>
-          <h:outputScript rendered="#{venueDA.success}">
+          <h:outputScript rendered="#{programmeDA.success}">
             alert("Successfully!!!");
         </h:outputScript>
-        <h:outputScript rendered="#{venueDA.message}">
+        <h:outputScript rendered="#{programmeDA.message}">
             alert("Error!!!");
         </h:outputScript>
         <div align="center">
@@ -38,7 +38,7 @@
                 <br/>
                     <tr>
                         <td>Programme ID:</td>
-                        <td><h:inputText value="#{programme.programmeID}" /><br/></td>
+                        <td><h:outputText value="#{programmeDA.maxID}" /><br/></td>
                     </tr>
                     <tr>
                         <td>Programme Code:</td>
@@ -53,11 +53,10 @@
                 <h:commandButton action="#{programmeDA.insertProgramme()}" value="Submit">
                     <f:param name="programmeID" value="#{programme.programmeID}" />
                     <f:param name="programmeCode" value="#{programme.programmeCode}" />
-                    <f:param name="programmeName" value="#{programme.programmeName}" />
-                   
+                    <f:param name="programmeName" value="#{programme.programmeName}" />        
                 </h:commandButton>
 
-                <h:commandButton action="step6Programme" value="Done"/>
+                <h:commandButton action="step1Programme" value="Done"/>
             </h:form>
 
         </div>

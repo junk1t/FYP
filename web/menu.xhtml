@@ -6,37 +6,46 @@
     <h:head>
         <style>
             .btn{
-                transition-duration: 0.4s;
-                padding: 10px 24px;
-                border-radius: 12px;
+               transition-duration: 0.4s;
+                padding: 20px 40px;
+                border:none;
+                width: 250px;
+                position: relative;
+                margin: 0 auto auto ;
+               
             }
-            .btn .btn:hover{
+            .btn .green:hover{
                 background-color:  #4CAF50;
                 color: white;
             }
             body{
                 background-color: #a6dff4;
+                
             }
             form{
-                background-color: white;
+                background-color: #a6dff4;
                 height: 200px;
-                width: 230px;
+                width: 350px;
             }
+            .btn .red:hover{
+                background-color: red;
+                color: white;
+            }
+            
         </style>
         <title>Main Menu</title>
     </h:head>
     <h:body>
-        <div align="center" class="btn">
-             <h1>Main Menu</h1>
+        <div class="btn">
+            <h1 align="center">Main Menu</h1>
             <h:form>
-               
                 <br/>
-                <h:commandButton action ="step1SchoolDetails" value = "Create New" styleClass="btn"/><br/><br/>
-                <h:commandButton action="EditInfo" value="Edit Information" styleClass="btn"/><br/><br/>
-                <h:commandButton action ="login" value="Back" styleClass="btn"/>
-                
+                <h:commandButton action ="step1Programme" value = "Create New Timetable" styleClass="btn green"/><br/><br/>
+                <h:commandButton action="EditInfo" value="Edit Information" styleClass="btn green"/><br/><br/>
+                <h:commandButton action ="login" value="Log Out" styleClass="btn red"/>
+                <br/>
             </h:form>
-            </div>
+        </div>
     </h:body>
 </html>
 

@@ -6,7 +6,6 @@
 package da;
 
 import domain.Cohort;
-import domain.Venue;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,11 +27,11 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "cohortDA")
 @SessionScoped
 public class CohortDA implements Serializable {
-    
+
     String years = "";
     String month = "";
 
-    private Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+    
     boolean success, message;
 
     public boolean isSuccess() {
@@ -52,9 +51,7 @@ public class CohortDA implements Serializable {
     }
 
     public void reset() {
-        
-        
-       
+
     }
 
     public void insertCohort() throws SQLException {
@@ -63,13 +60,12 @@ public class CohortDA implements Serializable {
         String cohortID = getMaxID();
         years = params.get("years");
         month = params.get("month");
-        
+
         Connection connect = null;
 
         String url = "jdbc:derby://localhost:1527/schedule";
         String username = "schedule";
         String password = "schedule";
-     
 
         try {
 
@@ -94,21 +90,21 @@ public class CohortDA implements Serializable {
                 cohortID = "CH1001";
             }
             
-            Cohort c = new Cohort(cohortID,years,month);
+         
+        
             PreparedStatement pstmt = connect.prepareStatement("INSERT INTO COHORT VALUES(?,?,?)");
-            
+
             pstmt.setString(1, cohortID);
             pstmt.setString(2, years);
             pstmt.setString(3, month);
 
             pstmt.executeUpdate();
             this.success = true;
-            this.message = false;
-            c.setMonth(null);
-            c.setYears(null);
+          
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+             this.message = false;
         }
 
     }
@@ -131,6 +127,7 @@ public class CohortDA implements Serializable {
     }
 
     public String editCohort() {
+        Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         String TCohortID = params.get("action");

@@ -1,14 +1,16 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"   xmlns:h="http://xmlns.jcp.org/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml"   xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <style>
             .btn{
                 transition-duration: 0.4s;
                 padding: 10px 24px;
-                border-radius: 12px;
+                border: none;
+                
             }
             .btn .btn:hover{
                 background-color:  #4CAF50;
@@ -18,10 +20,11 @@
                 background-color: #a6dff4;
             }
             form{
-                background-color: white;
+                background-color:  #a6dff4;
                 height: 200px;
                 width: 300px;
             }
+          
         </style>
         <title>Login Page</title>
     </h:head>
@@ -32,9 +35,14 @@
                
                 <h1>Login</h1>
                 <br />
-                <b>Username:</b> <input type="text" name="username"/><br /><br />
-                <b>Password:</b> <input type="text" name="password"/><br /><br />
-                <h:commandButton action="menu" styleClass="btn" value="Login"/>
+                <b>Username: </b> <h:inputText value="#{login.username}" /><br /><br />
+                <b>Password: </b> <h:inputSecret value="#{login.password}"/><br /><br />
+                
+                <h:commandButton action="#{login.login()}" styleClass="btn" value="Login">
+                    <f:param name="username" value="#{login.username}" />
+                    <f:param name="password" value="#{login.password}" />
+                </h:commandButton>
+                
             </h:form>
         </div>
     </h:body>

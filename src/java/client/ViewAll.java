@@ -28,7 +28,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "viewAll")
 @SessionScoped
-public class ViewAll implements Serializable{
+public class ViewAll implements Serializable {
 
     //GET VENUE
     public List<Venue> getAllVenue() throws ClassNotFoundException, SQLException {
@@ -48,7 +48,7 @@ public class ViewAll implements Serializable{
             v.setBlock(rs.getString("block"));
             v.setVenueType(rs.getString("venueType"));
             v.setCapacity(rs.getInt("capacity"));
-            v.setRemark(rs.getString("remark"));
+   
 
             Venue.add(v);
 
@@ -62,35 +62,35 @@ public class ViewAll implements Serializable{
         return Venue;
     }
 
+  
     //Get COURSE
-    public List<CourseType> getAllCourse() throws ClassNotFoundException, SQLException {
+    public List<Course> getAllCourse() throws ClassNotFoundException, SQLException {
 
         DB_connection dc = new DB_connection();
         Connection connect = dc.connection();
 
-        List<CourseType> Course = new ArrayList<CourseType>();
+        
+        List<Course> Course = new ArrayList<>();
+        
         PreparedStatement pstmt = connect
-                .prepareStatement("SELECT * FROM Course");
-        PreparedStatement pstmtt = connect
-                .prepareStatement("SELECT * FROM CourseType");
+                .prepareStatement("SELECT * FROM COURSE");
+
         ResultSet rs = pstmt.executeQuery();
-        ResultSet rss = pstmtt.executeQuery();
 
         while (rs.next()) {
 
-            CourseType c = new CourseType();
+ 
+            Course c = new Course();     
+            
             c.setCourseCode(rs.getString("courseCode"));
             c.setCourseName(rs.getString("courseName"));
             c.setCreditHour(rs.getInt("creditHour"));
-
-            while (rss.next()) {
-                c.setCourseType(rss.getString("courseType"));
-                c.setCourseDuration(rss.getString("courseDuration"));
-                c.setCourseID(rss.getString("courseID"));
-            }
+            
+           
             Course.add(c);
-        }
-
+            
+            
+            }
         // close resources
         rs.close();
         pstmt.close();
@@ -98,8 +98,37 @@ public class ViewAll implements Serializable{
 
         return Course;
     }
-    //Get TutorialGroup
 
+//    public List<CourseType> getAllCourseType() throws ClassNotFoundException, SQLException {
+//
+//        DB_connection dc = new DB_connection();
+//        Connection connect = dc.connection();
+//
+//        List<CourseType> CourseType = new ArrayList<CourseType>();
+//        PreparedStatement pstmtt = connect
+//                .prepareStatement("SELECT * FROM CourseType");
+//        ResultSet rss = pstmtt.executeQuery();
+//
+//        while (rss.next()) {
+//
+//            CourseType ct = new CourseType();
+//            ct.setCourseID(rss.getString("courseID"));
+//            ct.setCourseType(rss.getString("courseType"));
+//            ct.setCourseDuration(rss.getString("courseDuration"));
+//            ct.setCourseCode(rss.getString("courseCode"));
+//            CourseType.add(ct);
+//
+//        }
+//
+//        // close resources
+//        rss.close();
+//        pstmtt.close();
+//        connect.close();
+//
+//        return CourseType;
+//    }
+
+    //Get TutorialGroup
     public List<TutorialGroup> getAllTutorialGroup() throws ClassNotFoundException, SQLException {
 
         DB_connection dc = new DB_connection();
@@ -148,19 +177,24 @@ public class ViewAll implements Serializable{
 
             s.setStaffID(rs.getString("staffID"));
             s.setStaffName(rs.getString("staffName"));
-            s.setRemark(rs.getString("remark"));
+            s.setBlockday(rs.getString("blockDay"));
+            s.setBlockStart(rs.getString("blockStart"));
+            s.setBlockDuration(rs.getString("blockDuration"));
 
-            PreparedStatement pstmts = connect
-                    .prepareStatement("SELECT * FROM STAFFDETAILS WHERE STAFFID = '" + s.getStaffID() + "'");
-            ResultSet rss = pstmts.executeQuery();
-
-            while (rss.next()) {
-
-                s.setStartWork(rss.getString("startWork"));
-                s.setEndWork(rss.getString("endWork"));
-
-            }
+//            PreparedStatement pstmts = connect
+//                    .prepareStatement("SELECT * FROM STAFFDETAILS WHERE STAFFID = '" + s.getStaffID() + "'");
+//            ResultSet rss = pstmts.executeQuery();
+//
+//            while (rss.next()) {
+//                
+//                StaffDetails sd = new StaffDetails();
+//
+//                sd.setStarWork(rss.getString("startWork"));
+//                sd.setEndWork(rss.getString("endWork"));
+//
+//            }
             Staff.add(s);
+            
         }
 
         // close resources
@@ -232,12 +266,13 @@ public class ViewAll implements Serializable{
             Programme.add(p);
 
         }
-          rs.close();
+        rs.close();
         pstmt.close();
         connect.close();
 
         return Programme;
     }
+
     public List<Cohort> getAllCohort() throws ClassNotFoundException, SQLException {
 
         DB_connection dc = new DB_connection();
@@ -254,9 +289,8 @@ public class ViewAll implements Serializable{
             c.setCohortID(rs.getString("cohortID"));
             c.setYears(rs.getString("years"));
             c.setMonth(rs.getString("month"));
-        
 
-           Cohort.add(c);
+            Cohort.add(c);
 
         }
 

@@ -32,6 +32,7 @@
         <h:outputScript rendered="#{venueDA.message}">
             alert("Error!!!");
         </h:outputScript>
+        
         <div align="center">
             <h1>New Venue</h1>
             <h:form>
@@ -64,7 +65,7 @@
                     </tr>
                 </table><br/>
                 <h:commandButton action="#{venueDA.insertVenue()}" value="Submit">
-                    <f:param name="venueID" value="#{venue.venueID}" />
+                   <f:param name="venueID" value="#{venue.venueID}" />
                     <f:param name="block" value="#{venue.block}" />
                     <f:param name="venueType" value="#{venue.venueType}" />
                     <f:param name="capacity" value="#{venue.capacity}" />

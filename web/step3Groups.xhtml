@@ -50,11 +50,11 @@
 
     </style>
     <h:head>
-        <title>Step 3:Groups</title>
+        <title>Groups</title>
     </h:head>
     <h:body>
         <div align="center" class="btn">
-            <h1>Step 3: Tutorial Group</h1>
+            <h1>Tutorial Group</h1>
             <h:form>
                 <h:commandButton action="menu" value="Menu" styleClass="btn"/>
                 <h:commandButton action="newGroup" value="+New Group" styleClass="btn"/>
@@ -71,18 +71,15 @@
                         <f:facet name="header">Selection</f:facet>
                         <h:selectBooleanCheckbox onclick="#{selection.addToList(c.courseID)}"/>
                     </h:column>
-                    <h:column> 
-                        <f:facet name="header">Group ID</f:facet>
-                            #{g.groupID}
+                    <h:column> 	
+                        <f:facet name="header">Group Number</f:facet>
+                            #{g.groupNumber}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Year of Study</f:facet>
                             #{g.studyYear}
                     </h:column>
-                    <h:column> 	
-                        <f:facet name="header">Group Number</f:facet>
-                            #{g.groupNumber}
-                    </h:column>
+
                     <h:column> 	
                         <f:facet name="header">Size</f:facet>
                             #{g.size}
