@@ -33,7 +33,7 @@ public class Venue implements Serializable{
     public String venueID;
     public String block;
     public String venueType;
-    public String remark;
+    public String remark, courseCodeList;
     public int capacity;
     private ArrayList<Class> classList;
 
@@ -97,6 +97,17 @@ public class Venue implements Serializable{
     public void setClassList(ArrayList<Class> classList) {
         this.classList = classList;
     }
+
+    public String getCourseCodeList() {
+        return courseCodeList;
+    }
+
+    public void setCourseCodeList(String courseCodeList) {
+        this.courseCodeList = courseCodeList;
+    }
+    
+
+ 
     
    
 }

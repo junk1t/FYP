@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <style>
             .btn{
@@ -32,7 +32,7 @@
         <h:outputScript rendered="#{venueDA.message}">
             alert("Error!!!");
         </h:outputScript>
-        
+
         <div align="center">
             <h1>New Venue</h1>
             <h:form>
@@ -40,36 +40,53 @@
                     <br/>
                     <tr>
                         <td>Venue ID:</td>
-                        <td><h:inputText value="#{venue.venueID}" /><br/></td>
-                    </tr>
-                    <tr>
-                        <td>Block:</td>
-                        <td><h:inputText value="#{venue.block}" /><br/></td>
+                        <td><h:inputText value="#{venueManage.v.venueID}"/><br/></td>
                     </tr>
                     <tr>
                         <td>Venue Type:</td>
-                        <td><h:selectOneMenu value="#{venue.venueType}">
-                                <f:selectItem itemValue="Hall" itemLabel="Hall"/>
+                        <td><h:selectOneMenu value="#{venueManage.v.venueType}" >
+                                <f:selectItem itemValue="Hall" itemLabel="Hall" />
                                 <f:selectItem itemValue="Room" itemLabel="Room"/>
                                 <f:selectItem itemValue="Lab" itemLabel="Lab"/>
+                                <f:ajax render="selectCourseCode"/>
+                                <f:ajax render="selectBlock"/>
                             </h:selectOneMenu>
                             <br/></td>
                     </tr>
                     <tr>
                         <td>Capacity:</td>
-                        <td><h:inputText value="#{venue.capacity}" /><br/></td>
+                        <td><h:inputText value="#{venueManage.v.capacity}" /><br/></td>
                     </tr>
-                    <tr>
-                        <td>Remark:</td>
-                        <td><h:inputText value="#{venue.remark}" /><br/></td>
-                    </tr>
-                </table><br/>
-                <h:commandButton action="#{venueDA.insertVenue()}" value="Submit">
-                   <f:param name="venueID" value="#{venue.venueID}" />
-                    <f:param name="block" value="#{venue.block}" />
-                    <f:param name="venueType" value="#{venue.venueType}" />
-                    <f:param name="capacity" value="#{venue.capacity}" />
-                    <f:param name="remark" value="#{venue.remark}" />
+
+                </table>
+                <h:panelGroup id="selectBlock">
+                    <table>
+                        <tr>
+                            <h:panelGroup rendered="#{venueManage.v.venueType ne 'Hall'}">
+                                <td>Block:</td>
+                                <td><h:inputText value="#{venueManage.v.block}" /><br/></td>
+                            </h:panelGroup>
+                        </tr>
+                    </table>
+                </h:panelGroup>
+                <h:panelGroup  id="selectCourseCode">
+                    <table>
+                        <tr> 
+                            <h:panelGroup rendered="#{venueManage.v.venueType eq 'Lab'}">
+                                <td>
+                                    <h:outputLabel for="multiple" value="Course Code List: " />
+                                </td>
+                                <td>
+                                    <p:selectCheckboxMenu multiple="true" value="#{venueManage.courseCodeStr}" label="courseCode" filter="true" filterMatchMode="startsWith">
+                                        <f:selectItems value="#{venueManage.courseCodeList}" />
+                                    </p:selectCheckboxMenu>
+                                </td>
+                            </h:panelGroup>
+                        </tr>
+                    </table>
+                </h:panelGroup>
+                <h:commandButton action="#{venueManage.venueInsert()}" value="Submit">
+
                 </h:commandButton>
 
                 <h:commandButton action="step5Venue" value="Done"/>

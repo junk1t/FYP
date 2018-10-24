@@ -117,38 +117,24 @@ public class VenueDA implements Serializable {
 
     }
 
-    public void insertVenue() throws SQLException {
+    public void insertVenue(Venue v) throws SQLException {
         Connection connect = null;
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        String venueID = params.get("venueID");
-        String block = params.get("block");
-        String venueType = params.get("venueType");
-        String capacity = params.get("capacity");
-        String remark = params.get("remark");
-
-        String sql = "INSERT INTO VENUE(venueID,block,venueType,capacity,remark) VALUES(?,?,?,?,?)";
 
         try {
             connect = DBConnection.getConnection();
-            try {
-                PreparedStatement pstmt = connect.prepareStatement(sql);
+                    
+                PreparedStatement pstmt = connect.prepareStatement("INSERT INTO VENUE(venueID,block,venueType,capacity,courseCodeList) VALUES(?,?,?,?,?)");
                
-                pstmt.setString(1, venueID);
-                pstmt.setString(2, block);
-                pstmt.setString(3, venueType);
-                pstmt.setString(4, capacity);
-                pstmt.setString(5, remark);
-
+                pstmt.setString(1, v.getVenueID());
+                pstmt.setString(2, v.getBlock());
+                pstmt.setString(3, v.getVenueType());
+                pstmt.setInt(4, v.getCapacity());
+                pstmt.setString(5, v.getCourseCodeList());
                 pstmt.executeUpdate();
                 this.success = true;
                 this.message = false;
-            } catch (SQLException ex) {
+           
 
-                this.success = false;
-                this.message = true;
-                System.out.println(ex.getMessage());
-            }
         } catch (SQLException ex) {
 
             this.success = false;
