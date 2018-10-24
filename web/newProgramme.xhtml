@@ -42,18 +42,16 @@
                     </tr>
                     <tr>
                         <td>Programme Code:</td>
-                        <td><h:inputText value="#{programme.programmeCode}" /><br/></td>
+                        <td><h:inputText value="#{programmeManage.p.programmeCode}" /><br/></td>
                     </tr>
                     <tr>
                         <td>Programme Name:</td>
-                        <td><h:inputText value="#{programme.programmeName}" /><br/></td>
+                        <td><h:inputText value="#{programmeManage.p.programmeName}" /><br/></td>
                     </tr>
                    
                 </table><br/>
-                <h:commandButton action="#{programmeDA.insertProgramme()}" value="Submit">
-                    <f:param name="programmeID" value="#{programme.programmeID}" />
-                    <f:param name="programmeCode" value="#{programme.programmeCode}" />
-                    <f:param name="programmeName" value="#{programme.programmeName}" />        
+                <h:commandButton action="#{programmeManage.insertProgramme()}" value="Submit">
+      
                 </h:commandButton>
 
                 <h:commandButton action="step1Programme" value="Done"/>

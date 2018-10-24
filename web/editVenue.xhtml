@@ -32,32 +32,24 @@
                     
                     <tr>
                         <td>Venue ID:</td>
-                        <td><h:inputText value="#{editVenue.venueID}" /><br/></td>
+                        <td><h:inputText value="#{venueID}" /><br/></td>
                   
                     </tr>
                     <tr>
                         <td>Block:</td>
-                        <td><h:inputText value="#{editVenue.block}" /><br/></td>
+                        <td><h:inputText value="#{block}" /><br/></td>
                     </tr>
                     <tr>
                         <td>Venue Type:</td>
-                        <td><h:inputText value="#{editVenue.venueType}" /><br/></td>
+                        <td><h:inputText value="#{venueType}" /><br/></td>
                     </tr>
                     <tr>
                         <td>Capacity:</td>
-                        <td><h:inputText value="#{editVenue.capacity}" /><br/></td>
+                        <td><h:inputText value="#{capacity}" /><br/></td>
                     </tr>
-                    <tr>
-                        <td>Remark:</td>
-                        <td><h:inputText value="#{editVenue.remark}" /><br/></td>
-                    </tr>
+                 
                 </table><br/>
-                <h:commandButton action="#{venueDA.updateVenue}" value="Update">
-                    <f:param name="venueID" value="#{editVenue.venueID}" />
-                    <f:param name="block" value="#{editVenue.block}" />
-                    <f:param name="venueType" value="#{editVenue.venueType}" />
-                    <f:param name="capacity" value="#{editVenue.capacity}" />
-                    <f:param name="remark" value="#{editVenue.remark}" />
+                <h:commandButton action="#{venueDA.updateVenue}" value="Update">   
                 </h:commandButton>
                 <h:commandButton action="step5Venue" value="Done"/>
             </h:form>

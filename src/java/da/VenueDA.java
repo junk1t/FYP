@@ -12,7 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import domain.Class;
+import domain.Programme;
 import domain.Venue;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Statement;
 import java.util.List;
@@ -71,22 +73,22 @@ public class VenueDA implements Serializable {
     public void setMessage(boolean message) {
         this.message = message;
     }
-     public boolean isUpdate() {
+
+    public boolean isUpdate() {
         return update;
     }
 
     public void setUpdate(boolean update) {
         this.update = update;
     }
-     public boolean isDelete() {
+
+    public boolean isDelete() {
         return delete;
     }
 
     public void setDelete(boolean delete) {
         this.delete = delete;;
     }
-    
-    
 
     public List<Venue> getSelectedRecords(String venueID) throws SQLException {
         Connection connect = null;
@@ -103,7 +105,7 @@ public class VenueDA implements Serializable {
                 v.setBlock(rs.getString(2));
                 v.setVenueType(rs.getString(3));
                 v.setCapacity(rs.getInt(4));
-                v.setRemark(rs.getString(5));
+                
 
                 output.add(v);
 
@@ -122,18 +124,17 @@ public class VenueDA implements Serializable {
 
         try {
             connect = DBConnection.getConnection();
-                    
-                PreparedStatement pstmt = connect.prepareStatement("INSERT INTO VENUE(venueID,block,venueType,capacity,courseCodeList) VALUES(?,?,?,?,?)");
-               
-                pstmt.setString(1, v.getVenueID());
-                pstmt.setString(2, v.getBlock());
-                pstmt.setString(3, v.getVenueType());
-                pstmt.setInt(4, v.getCapacity());
-                pstmt.setString(5, v.getCourseCodeList());
-                pstmt.executeUpdate();
-                this.success = true;
-                this.message = false;
-           
+
+            PreparedStatement pstmt = connect.prepareStatement("INSERT INTO VENUE(venueID,block,venueType,capacity,courseCodeList) VALUES(?,?,?,?,?)");
+
+            pstmt.setString(1, v.getVenueID());
+            pstmt.setString(2, v.getBlock());
+            pstmt.setString(3, v.getVenueType());
+            pstmt.setInt(4, v.getCapacity());
+            pstmt.setString(5, v.getCourseCodeList());
+            pstmt.executeUpdate();
+            this.success = true;
+            this.message = false;
 
         } catch (SQLException ex) {
 
@@ -145,33 +146,33 @@ public class VenueDA implements Serializable {
 
     }
 
-    public String editVenue() {
-        Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        String TvenueID = params.get("action");
-        try {
-            DB_connection obj_DB_connection = new DB_connection();
-            Connection connection = obj_DB_connection.connection();
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("select * from Venue where VenueID = '" + TvenueID + "'");
-            Venue obj_Venue = new Venue();
-            rs.next();
-            obj_Venue.setVenueID(rs.getString("venueID"));
-            obj_Venue.setBlock(rs.getString("block"));
-            obj_Venue.setVenueType(rs.getString("venueType"));
-            obj_Venue.setCapacity(rs.getInt("capacity"));
-            obj_Venue.setRemark(rs.getString("remark"));
-            sessionMap.put("editVenue", obj_Venue);
+    public void editVenue(String venueID) throws IOException {
+        Connection connect = null;
+        
+         
+        try {   
+            connect = DBConnection.getConnection();
 
-        } catch (Exception e) {
+            Statement st = connect.createStatement();
+            ResultSet rs = st.executeQuery("select * from Venue where VenueID = '" + venueID + "'");
+            
+           rs.next();
+               Venue v = new Venue();
+               v.setVenueID(rs.getString("venueID"));
+               v.setBlock(rs.getString("block"));
+               v.setVenueType(rs.getString("venueType"));
+               v.setCapacity(rs.getInt("capacity"));
+
+        } catch (SQLException e) {
             System.out.println(e);
         }
-        return "/editVenue.xhtml?faces-redirect=true";
+        DBConnection.close(connect);
+        
+    FacesContext.getCurrentInstance().getExternalContext().redirect("editVenue.xhtml");
     }
 
     public String updateVenue() {
-        
+
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         String venueID = params.get("venueID");
@@ -196,11 +197,11 @@ public class VenueDA implements Serializable {
         }
 
         return "/selectVenue.xhtml?faces-redirect=true";
-        
+
     }
 
     public String deleteVenue() {
-       
+
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         String TVenueID = params.get("action");

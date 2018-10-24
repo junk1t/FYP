@@ -69,16 +69,10 @@
                     <h:column> 		
                         <f:facet name="header">Capacity</f:facet>
                             #{v.capacity}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Remark</f:facet>
-                            #{v.remark}
-                    </h:column>
+                    </h:column> 
                     <h:column>
                         <f:facet name="header">Edit</f:facet>
-                        <h:commandButton value="Edit" action="#{venueDA.editVenue}">
-                            <f:param name="action" value="#{v.venueID}" />
-                        </h:commandButton>
+                        <h:commandButton value="Edit" action="#{venueDA.editVenue(v)}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Delete</f:facet>

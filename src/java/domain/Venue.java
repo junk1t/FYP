@@ -33,7 +33,7 @@ public class Venue implements Serializable{
     public String venueID;
     public String block;
     public String venueType;
-    public String remark, courseCodeList;
+    public String  courseCodeList;
     public int capacity;
     private ArrayList<Class> classList;
 
@@ -41,12 +41,11 @@ public class Venue implements Serializable{
 
     }
 
-    public Venue(String venueID, String block, String venueType, int capacity, String remark) {
+    public Venue(String venueID, String block, String venueType, int capacity) {
         this.venueID = venueID;
         this.block = block;
         this.venueType = venueType;
         this.capacity = capacity;
-        this.remark = remark;
         this.classList = new ArrayList();
     }
 
@@ -72,14 +71,6 @@ public class Venue implements Serializable{
 
     public void setVenueType(String venueType) {
         this.venueType = venueType;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
     }
 
     public int getCapacity() {

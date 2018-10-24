@@ -177,9 +177,9 @@ public class ViewAll implements Serializable {
 
             s.setStaffID(rs.getString("staffID"));
             s.setStaffName(rs.getString("staffName"));
-            s.setBlockday(rs.getString("blockDay"));
-            s.setBlockStart(rs.getString("blockStart"));
-            s.setBlockDuration(rs.getString("blockDuration"));
+            s.setBlockday(rs.getInt("blockDay"));
+            s.setBlockStart(rs.getDouble("blockStart"));
+            s.setBlockDuration(rs.getInt("blockDuration"));
 
 //            PreparedStatement pstmts = connect
 //                    .prepareStatement("SELECT * FROM STAFFDETAILS WHERE STAFFID = '" + s.getStaffID() + "'");

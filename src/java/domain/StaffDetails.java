@@ -10,11 +10,13 @@ package domain;
  * @author DEREK
  */
 public class StaffDetails {
-    String staffID, starWork, endWork;
 
-    public StaffDetails(String staffID, String starWork, String endWork) {
+    String staffID;
+    double startWork, endWork;
+
+    public StaffDetails(String staffID, double startWork, double endWork) {
         this.staffID = staffID;
-        this.starWork = starWork;
+        this.startWork = startWork;
         this.endWork = endWork;
     }
 
@@ -29,21 +31,21 @@ public class StaffDetails {
         this.staffID = staffID;
     }
 
-    public String getStarWork() {
-        return starWork;
+    public double getStartWork() {
+        return startWork;
     }
 
-    public void setStarWork(String starWork) {
-        this.starWork = starWork;
+    public void setStartWork(double startWork) {
+        this.startWork = startWork;
     }
 
-    public String getEndWork() {
+    public double getEndWork() {
         return endWork;
     }
 
-    public void setEndWork(String endWork) {
+    public void setEndWork(double endWork) {
         this.endWork = endWork;
     }
-    
-    
+
+   
 }

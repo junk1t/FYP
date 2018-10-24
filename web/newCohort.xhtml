@@ -47,22 +47,15 @@
                     </tr>
                     <tr>
                         <td>Year:</td>
-                        <td><h:inputText value="#{cohort.years}"  requiredMessage="Invalid Input" maxlength="4"/> *2018  <br/></td>
+                        <td><h:inputText value="#{cohortManage.c.years}"  requiredMessage="Invalid Input" maxlength="4"/> *2018  <br/></td>
                     </tr>
                     <tr>
                         <td>Month:</td>
-                        <td><h:inputText value="#{cohort.month}"  requiredMessage="Invalid Input" maxlength="2"/> *1 for January<br/></td>
+                        <td><h:inputText value="#{cohortManage.c.month}"  requiredMessage="Invalid Input" maxlength="2"/> *1 for January<br/></td>
                     </tr>
                     
                 </table><br/>
-                <h:commandButton action="#{cohortDA.insertCohort()}" value="Submit" styleClass="btn green">
-                
-                    <f:param name="years" value="#{cohort.years}" />
-                    <f:param name="month" value="#{cohort.month}" />
-                 
-                    
-                </h:commandButton>
-
+                <h:commandButton action="#{cohortManage.insertCohort()}" value="Submit" styleClass="btn green"/>
                 <h:commandButton action="step1Programme" value="Done" styleClass="btn blue"/>
             </h:form>
 

@@ -6,6 +6,7 @@
 package da;
 
 import domain.Cohort;
+import domain.Programme;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -50,26 +51,12 @@ public class CohortDA implements Serializable {
         this.message = message;
     }
 
-    public void reset() {
-
-    }
-
-    public void insertCohort() throws SQLException {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+    public void insertCohort(Cohort c) throws SQLException {
         String cohortID = getMaxID();
-        years = params.get("years");
-        month = params.get("month");
-
         Connection connect = null;
 
-        String url = "jdbc:derby://localhost:1527/schedule";
-        String username = "schedule";
-        String password = "schedule";
-
         try {
-
-            connect = DriverManager.getConnection(url, username, password);
+            connect = DBConnection.getConnection();
             Statement stmt = connect.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT COHORTID FROM COHORT");
 
@@ -89,22 +76,19 @@ public class CohortDA implements Serializable {
             } else {
                 cohortID = "CH1001";
             }
-            
-         
-        
+
             PreparedStatement pstmt = connect.prepareStatement("INSERT INTO COHORT VALUES(?,?,?)");
 
             pstmt.setString(1, cohortID);
-            pstmt.setString(2, years);
-            pstmt.setString(3, month);
+            pstmt.setString(2, c.getYears());
+            pstmt.setString(3, c.getMonth());
 
             pstmt.executeUpdate();
             this.success = true;
-          
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-             this.message = false;
+
+        } catch (SQLException ex) {
+            this.message = true;
+            System.out.println(ex.getMessage());
         }
 
     }

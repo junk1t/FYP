@@ -46,31 +46,34 @@
                     </tr>
                     <tr>
                         <td>Staff Name:</td>
-                        <td><h:inputText value="#{staff.staffName}" /><br/></td>
+                        <td><h:inputText value="#{staffManage.s.staffName}" /><br/></td>
                     </tr>
                     <tr>
                         <td>Block Day</td>
-                        <td><h:inputText value="#{staff.blockday}" /><br/></td>
+                        <td><h:inputText value="#{staffManage.s.blockday}" /><br/></td>
                     </tr>
                     <tr>
                         <td>Block Start</td>
-                        <td><h:inputText value="#{staff.blockStart}" /><br/></td>
+                        <td><h:inputText value="#{staffManage.s.blockStart}" /><br/></td>
                     </tr>
                     <tr>
                         <td>Block Duration</td>
-                        <td><h:inputText value="#{staff.blockDuration}" /><br/></td>
+                        <td><h:inputText value="#{staffManage.s.blockDuration}" /><br/></td>
+                    </tr>
+                     <tr>
+                        <td>Start Work</td>
+                        <td><h:inputText value="#{staffManage.sd.startWork}" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td>End Work</td>
+                        <td><h:inputText value="#{staffManage.sd.endWork}" /><br/></td>
                     </tr>
 
                     
 
                 </table>
-                <br/><h:commandButton action="#{StaffDA.insertStaff()}" value="Submit">
-                    <f:param name="staffID" value="#{staff.staffID}" />
-                    <f:param name="staffName" value="#{staff.staffName}" />
-                    <f:param name="blockDay" value="#{staff.blockday}" />
-                    <f:param name="blockStart" value="#{staff.blockStart}" />
-                    <f:param name="blockDuration" value="#{staff.blockDuration}" />
-                </h:commandButton>
+                <br/><h:commandButton action="#{staffManage.staffInsert()}" value="Submit"/>
+        
 
 
                 <h:commandButton action="step4Staff" value="Done"/><br/>

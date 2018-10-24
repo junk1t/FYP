@@ -70,4 +70,5 @@ public class VenueManage {
         vda.insertVenue(v);
         FacesContext.getCurrentInstance().getExternalContext().redirect("step5Venue.xhtml");
     }
+
 }

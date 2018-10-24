@@ -52,34 +52,40 @@ public class ProgrammeDA implements Serializable {
         Programme p = new Programme();
         p.setProgrammeCode(null);
         p.setProgrammeName(null);
-       
+
     }//end clear`
 
-    public void insertProgramme() throws SQLException {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+    public void insertProgramme(Programme p) throws SQLException {
         String programmeID = getMaxID();
-        String programmeCode = params.get("programmeCode");
-        String programmeName = params.get("programmeName");
-
         Connection connect = null;
 
-        String url = "jdbc:derby://localhost:1527/schedule";
-        String username = "schedule";
-        String password = "schedule";
+        try {
+            connect = DBConnection.getConnection();
+            Statement stmt = connect.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT PROGRAMMEID FROM PROGRAMME");
 
-        try {
-            connect = DriverManager.getConnection(url, username, password);
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        try {
-           
+            ArrayList<Integer> ls = new ArrayList<>();
+
+            while (rs.next()) {
+                try {
+                    ls.add(Integer.parseInt(rs.getString(1).split("P")[1]));
+                } catch (Exception ex) {
+                    System.out.println("Invalid Exception");
+                }
+            }
+
+            if (ls.size() > 0) {
+                int max = Collections.max(ls) + 1;
+                programmeID = "P" + max;
+            } else {
+                programmeID = "P1001";
+            }
+
             PreparedStatement pstmt = connect.prepareStatement("INSERT INTO PROGRAMME VALUES(?,?,?)");
 
             pstmt.setString(1, programmeID);
-            pstmt.setString(2, programmeCode);
-            pstmt.setString(3, programmeName);
+            pstmt.setString(2, p.getProgrammeCode());
+            pstmt.setString(3, p.getProgrammeName());
 
             pstmt.executeUpdate();
             this.success = true;
@@ -88,7 +94,7 @@ public class ProgrammeDA implements Serializable {
             this.message = true;
             System.out.println(ex.getMessage());
         }
-      
+
     }
 
     public String deleteProgramme() {

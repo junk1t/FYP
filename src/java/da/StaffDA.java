@@ -46,9 +46,9 @@ public class StaffDA implements Serializable {
                 Staff s = new Staff();
                 s.setStaffID(rs.getString(1));
                 s.setStaffName(rs.getString(2));
-                s.setBlockday(rs.getString(3));
-                s.setBlockStart(rs.getString(4));
-                s.setBlockDuration(rs.getString(4));
+                s.setBlockday(rs.getInt(3));
+                s.setBlockStart(rs.getDouble(4));
+                s.setBlockDuration(rs.getInt(4));
 
                 output.add(s);
 
@@ -111,26 +111,14 @@ public class StaffDA implements Serializable {
 //       this.endWork = null;
 //   }
 
-    public void insertStaff() throws SQLException {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+    public void insertStaff(Staff s,StaffDetails sd) throws SQLException {
         String staffID = getMaxID();
-        String staffName = params.get("staffName");
-        String remark = params.get("remark");
-        String startWork = params.get("startWork");
-        String endWork = params.get("endWork");
-
         Connection connect = null;
 
-        String url = "jdbc:derby://localhost:1527/schedule";
-        String username = "schedule";
-        String password = "schedule";
-
         try {
-
-            connect = DriverManager.getConnection(url, username, password);
+            connect = DBConnection.getConnection();
             Statement stmt = connect.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT StaffID FROM STAFF");
+            ResultSet rs = stmt.executeQuery("SELECT STAFFID FROM STAFF");
 
             ArrayList<Integer> ls = new ArrayList<>();
 
@@ -148,38 +136,36 @@ public class StaffDA implements Serializable {
             } else {
                 staffID = "S1001";
             }
-            try {
 
-                PreparedStatement pstmt = connect.prepareStatement("INSERT INTO STAFF VALUES(?,?,?)");
+            PreparedStatement pstmt = connect.prepareStatement("INSERT INTO STAFF VALUES(?,?,?,?,?,?,?,?,?)");
 
-                pstmt.setString(1, staffID);
-                pstmt.setString(2, staffName);
-                pstmt.setString(3, remark);
-                pstmt.executeUpdate();
-                this.success = true;
-                this.message = false;
-                try {
+            pstmt.setString(1, staffID);
+            pstmt.setString(2, s.getStaffName());
+            pstmt.setInt(3, s.getBlockday());
+            pstmt.setDouble(4, s.getBlockStart());
+            pstmt.setInt(5, s.getBlockDuration());
+            pstmt.setString(6, s.getCourseCodeList());
+            pstmt.setString(7, s.getLecGroupList());
+            pstmt.setString(8, s.getTutGroupList());
+            pstmt.setString(9, s.getPracGroupList());
+            pstmt.executeUpdate();
 
-                    PreparedStatement pstmts = connect.prepareStatement("INSERT INTO STAFFDETAILS VALUES(?,?,?)");
-                    pstmts.setString(1, staffID);
-                    pstmts.setString(2, startWork);
-                    pstmts.setString(3, endWork);
+                    try {
 
-                    pstmts.executeUpdate();
+                        PreparedStatement pstmts = connect.prepareStatement("INSERT INTO STAFFDETAILS VALUES(?,?,?)");
+                        pstmts.setString(1, staffID);
+                        pstmts.setDouble(2, sd.getStartWork());
+                        pstmts.setDouble(3, sd.getEndWork());
 
-                    this.success = true;
-                    this.message = false;
+                        pstmts.executeUpdate();
 
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                        this.success = true;
+                        this.message = false;
 
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -224,17 +210,17 @@ public class StaffDA implements Serializable {
             rs.next();
             obj_Staff.setStaffID(rs.getString("staffID"));
             obj_Staff.setStaffName(rs.getString("staffName"));
-            obj_Staff.setBlockday(rs.getString("blockDay"));
-            obj_Staff.setBlockStart(rs.getString("blockStart"));
-            obj_Staff.setBlockDuration(rs.getString("blockDuration"));
+            obj_Staff.setBlockday(rs.getInt("blockDay"));
+            obj_Staff.setBlockStart(rs.getDouble("blockStart"));
+            obj_Staff.setBlockDuration(rs.getInt("blockDuration"));
 
             try {
-                
+
                 StaffDetails obj_StaffDetails = new StaffDetails();
                 ResultSet rss = st.executeQuery("select * from STAFFDETAILS where STAFFID = '" + staffID + "'");
                 rss.next();
-                obj_StaffDetails.setStarWork(rss.getString("startWork"));
-                obj_StaffDetails.setEndWork(rss.getString("endWork"));
+                obj_StaffDetails.setStartWork(rss.getDouble("startWork"));
+                obj_StaffDetails.setEndWork(rss.getDouble("endWork"));
 
                 sessionMap.put("editStaff", obj_Staff);
 

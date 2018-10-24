@@ -23,20 +23,37 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "staff")
 public class Staff implements Serializable{
 
-    private String staffID, staffName, blockday, blockStart, blockDuration;
+    private String staffID, staffName;
     private ArrayList<Class> classList;
+    private String courseCodeList, lecGroupList, tutGroupList,pracGroupList;
+    private double blockStart;
+    private int blockday,blockDuration;
 
     public Staff() {
 
     }
 
-    public Staff(String staffID, String staffName, String blockday, String blockStart, String blockDuration) {
+    public Staff(String staffID, String staffName, int blockday, double blockStart, int blockDuration) {
         this.staffID = staffID;
         this.staffName = staffName;
         this.blockday = blockday;
         this.blockStart = blockStart;
         this.blockDuration = blockDuration;
     }
+
+    public Staff(String staffID, String staffName, int blockday, double blockStart, int blockDuration, ArrayList<Class> classList, String courseCodeList, String lecGroupList, String tutGroupList, String pracGroupList) {
+        this.staffID = staffID;
+        this.staffName = staffName;
+        this.blockday = blockday;
+        this.blockStart = blockStart;
+        this.blockDuration = blockDuration;
+        this.classList = classList;
+        this.courseCodeList = courseCodeList;
+        this.lecGroupList = lecGroupList;
+        this.tutGroupList = tutGroupList;
+        this.pracGroupList = pracGroupList;
+    }
+    
 
     public String getStaffID() {
         return staffID;
@@ -54,27 +71,27 @@ public class Staff implements Serializable{
         this.staffName = staffName;
     }
 
-    public String getBlockday() {
+    public int getBlockday() {
         return blockday;
     }
 
-    public void setBlockday(String blockday) {
+    public void setBlockday(int blockday) {
         this.blockday = blockday;
     }
 
-    public String getBlockStart() {
+    public double getBlockStart() {
         return blockStart;
     }
 
-    public void setBlockStart(String blockStart) {
+    public void setBlockStart(double blockStart) {
         this.blockStart = blockStart;
     }
 
-    public String getBlockDuration() {
+    public int getBlockDuration() {
         return blockDuration;
     }
 
-    public void setBlockDuration(String blockDuration) {
+    public void setBlockDuration(int blockDuration) {
         this.blockDuration = blockDuration;
     }
 
@@ -85,5 +102,38 @@ public class Staff implements Serializable{
     public void setClassList(ArrayList<Class> classList) {
         this.classList = classList;
     }
+
+    public String getCourseCodeList() {
+        return courseCodeList;
+    }
+
+    public void setCourseCodeList(String courseCodeList) {
+        this.courseCodeList = courseCodeList;
+    }
+
+    public String getLecGroupList() {
+        return lecGroupList;
+    }
+
+    public void setLecGroupList(String lecGroupList) {
+        this.lecGroupList = lecGroupList;
+    }
+
+    public String getTutGroupList() {
+        return tutGroupList;
+    }
+
+    public void setTutGroupList(String tutGroupList) {
+        this.tutGroupList = tutGroupList;
+    }
+
+    public String getPracGroupList() {
+        return pracGroupList;
+    }
+
+    public void setPracGroupList(String pracGroupList) {
+        this.pracGroupList = pracGroupList;
+    }
+    
 
 }
