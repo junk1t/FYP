@@ -10,7 +10,7 @@ import domain.Cohort;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -18,7 +18,7 @@ import javax.faces.context.FacesContext;
  * @author DEREK
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class cohortManage {
     public CohortDA cda = new CohortDA();
     public Cohort c = new Cohort();
@@ -35,5 +35,15 @@ public class cohortManage {
      cda.insertCohort(c);
         FacesContext.getCurrentInstance().getExternalContext().redirect("step1Programme.xhtml");
      }
+     public void updateCohort() throws SQLException, IOException {
+        cda.updateCohort(c);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("step1Programme.xhtml");
+    }
+
+    public void retrieveCohort(String cohortID) throws SQLException, IOException {
+        c = cda.get(cohortID);      
+        FacesContext.getCurrentInstance().getExternalContext().redirect("editCohort.xhtml");
+
+    }
      
 }

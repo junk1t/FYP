@@ -6,8 +6,6 @@
 package da;
 
 import domain.Cohort;
-import domain.Programme;
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -27,12 +25,11 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "cohortDA")
 @SessionScoped
-public class CohortDA implements Serializable {
+public class CohortDA {
 
     String years = "";
     String month = "";
 
-    
     boolean success, message;
 
     public boolean isSuccess() {
@@ -53,7 +50,7 @@ public class CohortDA implements Serializable {
 
     public void insertCohort(Cohort c) throws SQLException {
         String cohortID = getMaxID();
-        Connection connect = null;
+        Connection connect;
 
         try {
             connect = DBConnection.getConnection();
@@ -110,53 +107,60 @@ public class CohortDA implements Serializable {
         return "/selectProgrammeCohort.xhtml?faces-redirect=true";
     }
 
-    public String editCohort() {
-        Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        String TCohortID = params.get("action");
+    public Cohort get(String cohortID) {
+        Connection connect;
+        Cohort c = new Cohort();
         try {
-            DB_connection obj_DB_connection = new DB_connection();
-            Connection connection = obj_DB_connection.connection();
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("select * from Cohort where CohortID = '" + TCohortID + "'");
-            Cohort obj_Cohort = new Cohort();
-            rs.next();
-            obj_Cohort.setCohortID(rs.getString("cohortID"));
-            obj_Cohort.setYears(rs.getString("years"));
-            obj_Cohort.setMonth(rs.getString("month"));
+            connect = DBConnection.getConnection();
+            PreparedStatement pstmt = connect.prepareStatement("select * from COHORT where COHORTID = ?");
+            pstmt.setString(1, cohortID);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                c = new Cohort(rs.getString(1), rs.getString(2), rs.getString(3));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return c;
 
-            sessionMap.put("editCohort", obj_Cohort);
+    }
+
+    public Cohort editCohort(String cohortID) {
+        Connection connect;
+        Cohort c = new Cohort();
+        try {
+            connect = DBConnection.getConnection();
+            PreparedStatement pstmt = connect.prepareStatement("select * from COHORT where COHORTID = ?");
+            pstmt.setString(1, cohortID);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                c = new Cohort(rs.getString(1), rs.getString(2), rs.getString(3));
+            }
+//            sessionMap.put("editProgramme", obj_Programme);
 
         } catch (Exception e) {
             System.out.println(e);
         }
-        return "/editCohort.xhtml?faces-redirect=true";
+        return c;
+
     }
 
-    public String updateCohort() {
-
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        String cohortID = params.get("cohortID");
-        String years = params.get("years");
-        String month = params.get("month");
-
+    public void updateCohort(Cohort c) {
+        Connection connect;
+        
         try {
-            DB_connection obj_DB_connection = new DB_connection();
-            Connection connection = obj_DB_connection.connection();
-            PreparedStatement ps = connection.prepareStatement("update Cohort set years=?, month=? where cohortID=?");
-            ps.setString(1, years);
-            ps.setString(2, month);
-            ps.setString(3, cohortID);
+            connect = DBConnection.getConnection();
+            PreparedStatement ps = connect.prepareStatement("update Cohort set years=?, month=? where cohortID=?");
+            
+            ps.setString(1, c.getYears());
+            ps.setString(2, c.getMonth());
+            ps.setString(3, c.getCohortID());
 
             ps.executeUpdate();
 
         } catch (Exception e) {
             System.out.println(e);
         }
-
-        return "/selectProgrammeCohort.xhtml?faces-redirect=true";
     }
 
     public String getMaxID() {

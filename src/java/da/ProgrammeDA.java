@@ -6,7 +6,6 @@
 package da;
 
 import domain.Programme;
-import domain.Venue;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,7 +26,7 @@ import javax.faces.context.FacesContext;
  *
  * @author DEREK
  */
-public class ProgrammeDA implements Serializable {
+public class ProgrammeDA{
 
     private Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
     boolean success, message;
@@ -113,45 +112,56 @@ public class ProgrammeDA implements Serializable {
         }
         return "/selectProgrammeCohort.xhtml?faces-redirect=true";
     }
-
-    public String editProgramme() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        String TprogrammeID = params.get("action");
+    
+    public Programme get(String programmeID){
+        Connection connect;
+        Programme p = new Programme();
         try {
-            DB_connection obj_DB_connection = new DB_connection();
-            Connection connection = obj_DB_connection.connection();
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("select * from PROGRAMME where PROGRAMMEID = '" + TprogrammeID + "'");
-            Programme obj_Programme = new Programme();
-            rs.next();
-            obj_Programme.setProgrammeID(rs.getString("ProgrammeID"));
-            obj_Programme.setProgrammeCode(rs.getString("ProgrammeCode"));
-            obj_Programme.setProgrammeName(rs.getString("ProgeammeName"));
-
-            sessionMap.put("editProgramme", obj_Programme);
+            connect = DBConnection.getConnection();
+            PreparedStatement pstmt = connect.prepareStatement("select * from PROGRAMME where PROGRAMMEID = ?");
+            pstmt.setString(1, programmeID);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                p = new Programme(rs.getString(1), rs.getString(2), rs.getString(3));
+            }
+//            sessionMap.put("editProgramme", obj_Programme);
 
         } catch (Exception e) {
             System.out.println(e);
         }
-        return "/editProgramme.xhtml?faces-redirect=true";
+        return p;
+
     }
 
-    public String updateProgramme() {
+//    public Programme editProgramme(String programmeID) {
+//        Connection connect;
+//        Programme p = new Programme();
+//        try {
+//            connect = DBConnection.getConnection();
+//            PreparedStatement pstmt = connect.prepareStatement("select * from PROGRAMME where PROGRAMMEID = ?");
+//            pstmt.setString(1, programmeID);
+//            ResultSet rs = pstmt.executeQuery();
+//            if (rs.next()) {
+//                p = new Programme(rs.getString(1), rs.getString(2), rs.getString(3));
+//            }
+////            sessionMap.put("editProgramme", obj_Programme);
+//
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        return p;
+//
+//    }
 
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        String programmeID = params.get("programmeID");
-        String programmeCode = params.get("programmeCode");
-        String programmeName = params.get("programmeName");
-
+    public void updateProgramme(Programme p) {
+        Connection connect = null;
+        
         try {
-            DB_connection obj_DB_connection = new DB_connection();
-            Connection connection = obj_DB_connection.connection();
-            PreparedStatement ps = connection.prepareStatement("update PROGRAMME set PROGRAMMECODE=?, PROGEAMMENAME=? where PROGRAMMEID=?");
-            ps.setString(1, programmeCode);
-            ps.setString(2, programmeName);
-            ps.setString(3, programmeID);
+            connect = DBConnection.getConnection();
+            PreparedStatement ps = connect.prepareStatement("update PROGRAMME set PROGRAMMECODE=?, PROGEAMMENAME=? where PROGRAMMEID=?");
+            ps.setString(1, p.getProgrammeCode());
+            ps.setString(2, p.getProgrammeName());
+            ps.setString(3, p.getProgrammeID());
 
             ps.executeUpdate();
 
@@ -159,7 +169,6 @@ public class ProgrammeDA implements Serializable {
             System.out.println(e);
         }
 
-        return "/selectProgrammeCohort.xhtml?faces-redirect=true";
     }
 
     public String getMaxID() {

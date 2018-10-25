@@ -65,9 +65,7 @@
 
                     <h:column>
                         <f:facet name="header">Edit</f:facet>
-                        <h:commandButton value="Edit" action="#{programmeDA.editProgramme}">
-                            <f:param name="action" value="#{p.programmeID}" />
-                        </h:commandButton>
+                        <h:commandButton value="Edit" action="#{programmeManage.retrieveProgramme(p.programmeID)}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Delete</f:facet>
@@ -77,8 +75,8 @@
                     </h:column>
                 </h:dataTable>
                 <br/>
-                
-                 <h:commandButton value="Done" action="EditInfo"/>
+
+                <h:commandButton value="Done" action="EditInfo"/>
             </h:form>
             <h1>Available Cohort</h1>
             <h:form >
@@ -104,9 +102,7 @@
 
                     <h:column>
                         <f:facet name="header">Edit</f:facet>
-                        <h:commandButton value="Edit" action="#{cohortDA.editCohort}">
-                            <f:param name="action" value="#{c.cohortID}" />
-                        </h:commandButton>
+                        <h:commandButton value="Edit" action="#{cohortManage.retrieveCohort(c.cohortID)}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Delete</f:facet>
@@ -116,10 +112,10 @@
                     </h:column>
                 </h:dataTable>
                 <br/>
-                 <h:commandButton value="Done" action="EditInfo"/>
-            
+                <h:commandButton value="Done" action="EditInfo"/>
+
             </h:form>
-              
+
             <br/><br/>
         </div>
     </h:body>
